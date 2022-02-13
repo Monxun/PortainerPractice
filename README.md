@@ -71,5 +71,6 @@ https://techdozo.dev/deploying-a-restful-spring-boot-microservice-on-kubernetes/
 https://onexlab-io.medium.com/docker-compose-mysql-entry-point-fa6335346791
 
 
+
 If you're feelin froggy and wanna buy me a coffee here's my cashapp: $KRUXADE
 <3
