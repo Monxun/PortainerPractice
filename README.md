@@ -54,7 +54,7 @@ gitkey:
 S3 bucket:
 jenkins-terraform-cicd
 
-9. Deploy Springboot Mocroservice using Terraform
+9. Deploy Springboot Microservice using Terraform
 
 https://youtu.be/J2YhWG994Iw
 
