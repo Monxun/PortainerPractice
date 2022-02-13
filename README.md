@@ -45,14 +45,14 @@ https://www.reddit.com/r/selfhosted/comments/icwvox/super_simple_cloudflare_and_
 https://funnelgarden.com/sonarqube-jenkins-docker/
 
 8. Setup Terraform Pipeline 
- https://youtu.be/qFjGqPw1NUY
+https://youtu.be/qFjGqPw1NUY
 
 
 gitkey:
-****************************
+    ****************************
 
 S3 bucket:
-jenkins-terraform-cicd
+    jenkins-terraform-cicd
 
 9. Deploy Springboot Microservice using Terraform
 
@@ -69,3 +69,7 @@ https://techdozo.dev/deploying-a-restful-spring-boot-microservice-on-kubernetes/
 10. Populate Dummy Data 
 
 https://onexlab-io.medium.com/docker-compose-mysql-entry-point-fa6335346791
+
+
+If you're feelin froggy and wanna buy me a coffee here's my cashapp: $KRUXADE
+<3
