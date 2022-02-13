@@ -1,6 +1,22 @@
 # PortainerPractice
 Portainer practice repo
 
+SETUP: 
+
+* MAKE SURE MAVEN AND JAVA ARE INSTALLED LOCALLY
+
+1. Replace 'your-microservice-repo' dir with your microservice repo
+
+2. Copy the Docker and docker-compose.yaml files into the root of your microservices dir
+
+3. Create an 'init' dir in the same root dir
+
+4. Run 'mvn clean install' in root dir
+
+5. Replace .jar file in Dockerfile lines 2 and 3
+
+_______________________________________________________________________________
+
 1. https://docs.fuga.cloud/how-to-install-portainer-docker-ui-manager-on-ubuntu-20.04-18.04-16.04
 
 2. https://docs.portainer.io/v/ce-2.11/start/upgrade/docker
