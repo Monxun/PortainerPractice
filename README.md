@@ -3,7 +3,7 @@ Portainer practice repo
 
 SETUP: 
 
-* MAKE SURE MAVEN AND JAVA ARE INSTALLED LOCALLY
+MAKE SURE MAVEN AND JAVA ARE INSTALLED LOCALLY
 
 1. Replace 'your-microservice-repo' dir with your microservice repo
 
