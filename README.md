@@ -73,5 +73,5 @@ https://onexlab-io.medium.com/docker-compose-mysql-entry-point-fa6335346791
 
 _______________________________________________________________________________
 
-If you're feelin froggy and wanna buy me a coffee here's my cashapp: $KRUXADE
+If you're feelin froggy and wanna buy me a beer here's my cashapp: $KRUXADE
 <3
