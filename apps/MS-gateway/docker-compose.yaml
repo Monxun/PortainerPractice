@@ -1,0 +1,9 @@
+version: '3'
+services:
+  springboot-gateway:
+    image: springboot-gateway
+    ports:
+      - '8081:8080'
+    build:
+      context: './'
+      dockerfile: 'Dockerfile'
