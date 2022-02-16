@@ -10,7 +10,7 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=root
       - MYSQL_DATABASE=users
-      - TEST_USERS_COUNT=100
+      - DUMMY_COUNT=100
     volumes:
       - ./init:/docker-entrypoint-initdb.d
     ports:

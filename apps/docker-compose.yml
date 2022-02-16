@@ -1,0 +1,65 @@
+version: '3'
+services:
+  gateway:
+
+  bank:
+
+  transaction:
+
+  underwriter:
+
+  user:
+    image: springboot-user-microservice
+    ports:
+      - '8081:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/users?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: 'user'
+      SPRING_DATASOURCE_PASSWORD: 'root'
+      APP_PORT: '8080'
+    build:
+      context: './MS-user'
+      dockerfile: 'Dockerfile.user'
+    depends_on:
+      - user-db
+
+  user-db:
+    user: root
+    image: 'mysql'
+    restart: 'always'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=users
+      - DUMMY_COUNT=100
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+  adminer:
+    image: 'adminer'
+    restart: 'always'
+    ports:
+      - '8084:8080'
+
+
+
+
+
+
+  springboot-user-microservice:
+    image: springboot-user-microservice
+    ports:
+      - '8081:8080'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/users?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: 'user'
+      SPRING_DATASOURCE_PASSWORD: 'root'
+      APP_PORT: '8080'
+    build:
+      context: './'
+      dockerfile: 'Dockerfile.users'
+    depends_on:
+      - mysql-db
