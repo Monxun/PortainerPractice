@@ -1,0 +1,153 @@
+version: '3'
+services:
+
+  # FRONTEND
+  # FE-admin:
+  #   build: .
+  #   context: ./FE-admin
+  #   dockerfile: Dockerfile.admin
+  #   env_file: ./FE-admin/.env
+  #   ports:
+  #     - "8085:8085"
+
+  # FE-dashboard:
+  #   build: .
+  #   context: ./FE-dashboard
+  #   dockerfile: Dockerfile.dashboard
+  #   env_file: ./FE-dashboard/.env
+  #   ports:
+  #     - "8086:8086"
+
+  # FE-landing:
+  #   build: .
+  #   context: ./FE-landing
+  #   dockerfile: Dockerfile.landing
+  #   env_file: ./FE-landing/.env
+  #   ports:
+  #     - "8087:8087"
+
+  # MICROSERVICES
+  MS-gateway:
+    build: .
+    context: ./MS-gateway
+    dockerfile: Dockerfile.gateway
+    env_file: ./MS-gateway/.env
+    ports:
+      - "8080:8080"
+
+  MS-bank:
+    image: MS-bank
+    build: .
+    context: './MS-bank'
+    dockerfile: 'Dockerfile.bank'
+    env_file: ./MS-bank/.env
+    ports:
+      - '8083:8083'
+    depends_on:
+      - DB-bank
+
+
+  MS-transaction:
+    image: MS-transaction
+    build: .
+    context: './MS-transaction'
+    dockerfile: 'Dockerfile.transaction'
+    env_file: ./MS-transaction/.env
+    ports:
+      - '8073:8073'
+    depends_on:
+      - DB-transaction
+
+  MS-underwriter:
+    image: MS-underwriter
+    build: .
+    context: './MS-underwriter'
+    dockerfile: 'Dockerfile.underwriter'
+    env_file: ./MS-underwriter/.env
+    ports:
+      - '8071:8071'
+    depends_on:
+      - DB-underwriter
+
+  MS-user:
+    image: MS-user
+    build: .
+    context: './MS-user'
+    dockerfile: 'Dockerfile.user'
+    env_file: ./MS-user/.env
+    ports:
+      - '8070:8070'
+    depends_on:
+      - DB-user
+
+# DATABASES
+  DB-bank:
+    user: root
+    image: 'mysql'
+    restart: 'always'
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-bank/.env
+    volumes:
+      - ./DB-bank/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+
+  DB-transaction:
+    user: root
+    image: 'mysql'
+    restart: 'always'
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-transaction/.env
+    volumes:
+      - ./DB-transaction/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3307:3306'
+
+  DB-underwriter:
+    user: root
+    image: 'mysql'
+    restart: 'always'
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-underwriter/.env
+    volumes:
+      - ./DB-underwriter/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3308:3306'
+
+  DB-user:
+    user: root
+    image: 'mysql'
+    restart: 'always'
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-user/.env
+    volumes:
+      - ./DB-user/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3309:3306'
+
+  # ADMIN
+  adminer:
+    image: 'adminer'
+    restart: 'always'
+    ports:
+      - '8084:8080'
+
+
+
+  # springboot-user-microservice:
+  #   image: springboot-user-microservice
+  #   ports:
+  #     - '8081:8080'
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3307/users?autoReconnect=true&useSSL=false
+  #     SPRING_DATASOURCE_USERNAME: 'user'
+  #     SPRING_DATASOURCE_PASSWORD: 'root'
+  #     APP_PORT: '8080'
+  #   build:
+  #     context: './'
+  #     dockerfile: 'Dockerfile.users'
+  #   depends_on:
+  #     - mysql-db
+
+
+  

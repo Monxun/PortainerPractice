@@ -1,0 +1,8 @@
+FROM openjdk:latest
+RUN apt-get update -y && \
+    apt-get install -y default-jre
+ADD ./transaction-microservice/target/transaction-microservice-0.1.0.jar transaction-microservice-0.1.0.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "transaction-microservice-0.1.0.jar"]
+
+# add app port variable from mavenfor expose & update jar location

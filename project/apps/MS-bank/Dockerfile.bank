@@ -1,8 +1,8 @@
 FROM openjdk:latest
 RUN apt-get update -y && \
     apt-get install -y default-jre
-ADD ./user-microservice/target/user-microservice-0.1.0.jar user-microservice-0.1.0.jar
+ADD ./bank-microservice/target/bank-microservice-0.1.0.jar bank-microservice-0.1.0.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "user-microservice-0.1.0.jar"]
+ENTRYPOINT ["java", "-jar", "bank-microservice-0.1.0.jar"]
 
 # add app port variable from mavenfor expose & update jar location
