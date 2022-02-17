@@ -1,0 +1,60 @@
+version: '3'
+services:
+
+# DATABASES
+  db-bank:
+    user: root
+    image: mysql
+    container_name: db-bank
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-bank/.env
+    volumes:
+      - ./DB-bank/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+
+  # DB-transaction:
+  #   user: root
+  #   image: 'mysql'
+  #   restart: 'always'
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   env_file: ./DB-transaction/.env
+  #   volumes:
+  #     - ./DB-transaction/init:/docker-entrypoint-initdb.d
+  #   ports:
+  #     - '3307:3306'
+
+  db-underwriter:
+    user: root
+    image: mysql
+    container_name: db-underwriter
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-underwriter/.env
+    volumes:
+      - ./DB-underwriter/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3308:3306'
+
+  db-user:
+    user: root
+    image: mysql
+    container_name: db-user
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-user/.env
+    volumes:
+      - ./DB-user/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3309:3306'
+
+  # ADMIN
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8084:8080'
+
+
+  
