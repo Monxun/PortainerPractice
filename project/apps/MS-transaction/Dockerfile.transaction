@@ -1,6 +1,8 @@
-FROM openjdk:latest
-ADD ./transaction-microservice/target/transaction-microservice-0.1.0.jar transaction-microservice-0.1.0.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "transaction-microservice-0.1.0.jar"]
+FROM maven:latest
+WORKDIR /app
+COPY . .
+RUN mvn clean install
+EXPOSE 8073
+ENTRYPOINT ["java", "-jar", "./transaction-microservice/target/transaction-microservice-0.1.0.jar"]
 
 # add app port variable from mavenfor expose & update jar location
