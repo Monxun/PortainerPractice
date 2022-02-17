@@ -27,8 +27,9 @@ services:
     # env_file: ./FE-landing/.env
 
   # MICROSERVICES
-  MS-gateway:
+  ms-gateway:
     image: ms-gateway
+    container_name: ms-gateway
     build:
       context: ./MS-gateway
       dockerfile: Dockerfile.gateway
@@ -36,8 +37,9 @@ services:
       - "8080:8080"
     env_file: ./MS-gateway/.env
 
-  MS-bank:
+  ms-bank:
     image: ms-bank
+    container_name: ms-bank
     build:
       context: ./MS-bank
       dockerfile: Dockerfile.bank
@@ -59,8 +61,9 @@ services:
   #   depends_on:
   #     - DB-transaction
 
-  MS-underwriter:
+  ms-underwriter:
     image: ms-underwriter
+    container_name: ms-underwriter
     build:
       context: ./MS-underwriter
       dockerfile: Dockerfile.underwriter
@@ -70,8 +73,9 @@ services:
     depends_on:
       - DB-underwriter
 
-  MS-user:
+  ms-user:
     image: ms-user
+    container_name: ms-user
     build:
       context: ./MS-user
       dockerfile: Dockerfile.user
@@ -82,10 +86,11 @@ services:
       - DB-user
 
 # DATABASES
-  DB-bank:
+  db-bank:
     user: root
-    image: 'mysql'
-    restart: 'always'
+    image: mysql
+    container_name: db-bank
+    restart: always
     command: --default-authentication-plugin=mysql_native_password
     env_file: ./DB-bank/.env
     volumes:
@@ -104,10 +109,11 @@ services:
   #   ports:
   #     - '3307:3306'
 
-  DB-underwriter:
+  db-underwriter:
     user: root
-    image: 'mysql'
-    restart: 'always'
+    image: mysql
+    container_name: db-underwriter
+    restart: always
     command: --default-authentication-plugin=mysql_native_password
     env_file: ./DB-underwriter/.env
     volumes:
@@ -115,10 +121,11 @@ services:
     ports:
       - '3308:3306'
 
-  DB-user:
+  db-user:
     user: root
-    image: 'mysql'
-    restart: 'always'
+    image: mysql
+    container_name: db-user
+    restart: always
     command: --default-authentication-plugin=mysql_native_password
     env_file: ./DB-user/.env
     volumes:
@@ -128,8 +135,8 @@ services:
 
   # ADMIN
   adminer:
-    image: 'adminer'
-    restart: 'always'
+    image: adminer
+    restart: always
     ports:
       - '8084:8080'
 
