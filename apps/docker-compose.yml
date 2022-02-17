@@ -1,7 +1,11 @@
 version: '3'
 services:
   gateway:
-
+    build: .
+    context: ./MS-gateway
+    dockerfile: Dockerfile.gateway
+    ports:
+      - "8080:8080"
   bank:
 
   transaction:
