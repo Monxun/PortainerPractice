@@ -1,6 +1,4 @@
 FROM openjdk:latest
-RUN apt-get update -y && \
-    apt-get install -y default-jre
 ADD ./bank-microservice/target/bank-microservice-0.1.0.jar bank-microservice-0.1.0.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "bank-microservice-0.1.0.jar"]
