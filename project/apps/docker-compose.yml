@@ -27,13 +27,13 @@ services:
   #     - "8087:8087"
 
   # MICROSERVICES
-  MS-gateway:
-    build: .
-    context: ./MS-gateway
-    dockerfile: Dockerfile.gateway
-    env_file: ./MS-gateway/.env
-    ports:
-      - "8080:8080"
+  # MS-gateway:
+  #   build: .
+  #   context: ./MS-gateway
+  #   dockerfile: Dockerfile.gateway
+  #   env_file: ./MS-gateway/.env
+  #   ports:
+  #     - "8080:8080"
 
   MS-bank:
     image: MS-bank
