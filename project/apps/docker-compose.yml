@@ -6,45 +6,45 @@ services:
   #   build:
     #   context: ./FE-admin
     #   dockerfile: Dockerfile.admin
-    #   env_file: ./FE-admin/.env
     #   ports:
     #     - "8085:8085"
+    # env_file: ./FE-admin/.env
 
   # FE-dashboard:
   #   build:
     #   context: ./FE-dashboard
     #   dockerfile: Dockerfile.dashboard
-    #   env_file: ./FE-dashboard/.env
     #   ports:
     #     - "8086:8086"
+    # env_file: ./FE-dashboard/.env
 
   # FE-landing:
   #   build:
     #   context: ./FE-landing
     #   dockerfile: Dockerfile.landing
-    #   env_file: ./FE-landing/.env
     #   ports:
     #     - "8087:8087"
+    # env_file: ./FE-landing/.env
 
   # MICROSERVICES
   # MS-gateway:
   #   build:
     #   context: ./MS-gateway
     #   dockerfile: Dockerfile.gateway
-    #   env_file: ./MS-gateway/.env
     #   ports:
     #     - "8080:8080"
+    # env_file: ./MS-gateway/.env
 
   MS-bank:
     image: MS-bank
     build:
       context: ./MS-bank
       dockerfile: Dockerfile.bank
-      env_file: ./MS-bank/.env
       ports:
         - '8083:8083'
-      depends_on:
-        - DB-bank
+    env_file: ./MS-bank/.env
+    depends_on:
+      - DB-bank
 
 
   MS-transaction:
@@ -52,33 +52,33 @@ services:
     build:
       context: ./MS-transaction
       dockerfile: Dockerfile.transaction
-      env_file: ./MS-transaction/.env
       ports:
         - '8073:8073'
-      depends_on:
-        - DB-transaction
+    env_file: ./MS-transaction/.env
+    depends_on:
+      - DB-transaction
 
   MS-underwriter:
     image: MS-underwriter
     build:
       context: ./MS-underwriter
       dockerfile: Dockerfile.underwriter
-      env_file: ./MS-underwriter/.env
       ports:
         - '8071:8071'
-      depends_on:
-        - DB-underwriter
+    env_file: ./MS-underwriter/.env
+    depends_on:
+      - DB-underwriter
 
   MS-user:
     image: MS-user
     build:
       context: ./MS-user
       dockerfile: Dockerfile.user
-      env_file: ./MS-user/.env
       ports:
         - '8070:8070'
-      depends_on:
-        - DB-user
+    env_file: ./MS-user/.env
+    depends_on:
+      - DB-user
 
 # DATABASES
   DB-bank:
