@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile.landing
     ports:
       - "8087:8087"
-    env_file: ./FE-landing/.env
+    env_file: ./FE-landing/.env.dev
 
 
 
