@@ -79,7 +79,7 @@ def create_applicants(count=100):
             zipcode=zipcode,
         )
 
-        session.add(applicant)
+        my_session.add(applicant)
 
 
 def create_banks(count=10):
@@ -99,7 +99,7 @@ def create_banks(count=10):
             zipcode=zipcode
         )
 
-        session.add(bank)
+        my_session.add(bank)
 
 
 def create_merchants(count=50):
@@ -122,7 +122,7 @@ def create_merchants(count=50):
             zipcode=zipcode
         )
 
-        session.add(merchant)
+        my_session.add(merchant)
 
 
 def create_applications():
@@ -138,7 +138,7 @@ def create_applications():
             primary_applicant_id=applicant.id,
         )
 
-        session.add(application)
+        my_session.add(application)
     
         
 
@@ -162,7 +162,7 @@ def create_branches(count=50):
             bank_id=random.shuffle(banks)[0]
         )
 
-        session.add(branch)
+        my_session.add(branch)
         
 
 def create_members():
@@ -175,7 +175,7 @@ def create_members():
             branch_id=random.shuffle(branches)[0]
         )
 
-        session.add(member)
+        my_session.add(member)
 
 
 def create_accounts():
@@ -196,7 +196,7 @@ def create_accounts():
             primary_account_holder_id=session.query(Members).filter(application.primary_application_id)
         )
 
-        session.add(account)
+        my_session.add(account)
 
 
 def create_users():
@@ -216,7 +216,7 @@ def create_users():
             member_id=member.membership_id
         )
 
-        session.add(user)
+        my_session.add(user)
         
 
 def create_one_time_passcodes():
@@ -228,7 +228,7 @@ def create_one_time_passcodes():
             user_id=user.id
         )
 
-        session.add(otp)
+        my_session.add(otp)
 
 
 def create_transactions(count=1000):
@@ -257,7 +257,7 @@ def create_transactions(count=1000):
             merchant_code=merchant.code
         )
         
-        session.add(transaction)
+        my_session.add(transaction)
 
 
 def create_user_registration_tokens(count=200):
@@ -270,7 +270,7 @@ def create_user_registration_tokens(count=200):
             user_id=user.id,
         )
 
-        session.add(urt)
+        my_session.add(urt)
 
 
 if __name__ == '__main__':
