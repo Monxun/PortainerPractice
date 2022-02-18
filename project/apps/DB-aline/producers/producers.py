@@ -3,6 +3,8 @@ from sqlalchemy import inspect
 from sqlalchemy.orm import session
 from models import 
 
+from faker import Faker
+
 #################################################
 # DATABASE CONNECTOR
 
@@ -19,6 +21,8 @@ for table_name in inspector.get_table_names():
 #################################################
 # DATA PRODUCER
 
+fake = Faker()
+
 Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
@@ -28,7 +32,7 @@ def create_applicants(count=100):
 
         applicant = Applicant(
             id=i,
-            address=
+            address=fake.address()
         )
 
 
