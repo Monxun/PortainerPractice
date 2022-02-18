@@ -9,7 +9,7 @@ from faker import Faker
 # DATABASE CONNECTOR
 
 engine = sqlalchemy.create_engine(
-    'mysql+mysqlconnector://username:password@localhost:3306/alinedb',
+    'mysql+mysqlconnector://user:root@localhost:3306/alinedb',
     echo=True
 )
 
