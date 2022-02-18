@@ -85,7 +85,7 @@ number_of_users = 100
 for _ in range(number_of_users):
   first, last = fake.name().split(' ')
   cursor.execute(
-            "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
+            f"CREATE DATABASE {DB_NAME} DEFAULT CHARACTER SET 'utf8'")
 
 
   # try:

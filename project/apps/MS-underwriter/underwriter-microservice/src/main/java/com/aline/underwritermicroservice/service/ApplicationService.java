@@ -212,9 +212,9 @@ public class ApplicationService {
                         }
                     });
 
-            // Call onRespond if a responseConsumer was provided.
-            if (responseConsumer != null)
-                responseConsumer.onRespond(response);
+            // // Call onRespond if a responseConsumer was provided.
+            // if (responseConsumer != null)
+            //     responseConsumer.onRespond(response);
 
             log.info("Accounts and members successfully created.");
             return response;
