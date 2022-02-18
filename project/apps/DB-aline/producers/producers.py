@@ -44,7 +44,7 @@ def create_applicants(count=100):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = re.split(', |,| ', line2)
+        city, state, zipcode = tuple(re.split(', |,| ', line2))
 
         if applicant['sex'] == 'M':
             middle_name = fake.name_male().split(' ')[0]
@@ -84,7 +84,7 @@ def create_banks(count=10):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = re.split(', |,| ', line2)
+        city, state, zipcode = tuple(re.split(', |,| ', line2))
 
         bank = Bank(
             address=street,
@@ -104,7 +104,7 @@ def create_merchants(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = re.split(', |,| ', line2)
+        city, state, zipcode = tuple(re.split(', |,| ', line2))
 
         merchant = Merchant(
             code=int(''.join(["{}".format(randint(0, 9)) for num in range(0, 8)])),
@@ -145,7 +145,7 @@ def create_branches(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = re.split(', |,| ', line2)
+        city, state, zipcode = tuple(re.split(', |,| ', line2))
 
         branch = Branch(
             address=street,
