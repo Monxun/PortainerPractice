@@ -6,11 +6,12 @@ import secrets
 import sqlalchemy
 from sqlalchemy import inspect
 from sqlalchemy.orm import session
-from models import 
+
+from models import *
+from utils import random_bank_name
 
 from faker import Faker
 
-from utilities import random_bank_name
 
 #################################################
 # DATABASE CONNECTOR
@@ -157,7 +158,7 @@ def create_branches(count=50):
         )
 
         session.add(branch)
-        
+
 
 def create_members():
     branches = session.query(Branch).all()

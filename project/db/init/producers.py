@@ -8,11 +8,10 @@ from sqlalchemy import inspect
 from sqlalchemy.orm import session
 
 from models import *
-from utils import *
+from utils import random_bank_name
 
 from faker import Faker
 
-from utilities import random_bank_name
 
 #################################################
 # DATABASE CONNECTOR
