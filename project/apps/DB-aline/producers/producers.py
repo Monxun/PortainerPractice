@@ -301,7 +301,7 @@ if __name__ == '__main__':
     # create_banks()
     # create_merchants()
     # create_applications()
-    # create_branches()
+    create_branches()
     create_members()
     create_accounts()
     create_users()
