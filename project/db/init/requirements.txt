@@ -1,2 +1,4 @@
 Faker
-mysql-connector-python
+pymysql
+sqlacodegen
+sqlalchemy
