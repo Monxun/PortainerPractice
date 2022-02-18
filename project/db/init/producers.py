@@ -142,7 +142,7 @@ def create_applications():
     statuses = ['New', 'Pending', 'Approved', 'Denied', 'Needs Review', 'Active']
     types = ['Business', 'Personal', 'Non-Profit', 'Trust']
 
-    for applicant in session.query(Applicant).all():
+    for applicant in my_session.query(Applicant).all():
 
         application = Application(
             application_status=random.choice(statuses),
@@ -156,7 +156,7 @@ def create_applications():
         
 
 def create_branches(count=50):
-    banks = session.query(Bank).all()
+    banks = my_session.query(Bank).all()
     for _ in range(count):
 
         address = fake.address()
@@ -184,8 +184,8 @@ def create_branches(count=50):
 
 
 def create_members():
-    branches = session.query(Branch).all()
-    for application in session.query(Application).filter(Application.application_status=='Active'):
+    branches = my_session.query(Branch).all()
+    for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
@@ -198,7 +198,7 @@ def create_members():
 
 
 def create_accounts():
-    for application in session.query(Application).filter(Application.application_status=='Active'):
+    for application in my_session.query(Application).filter(Application.application_status=='Active'):
         balance = random.randrange(-5000, 10000000)
         if balance >= 0:
             status = 'CURRENT'
@@ -212,7 +212,7 @@ def create_accounts():
             status=status,
             available_balance=balance,
             apy=round(random.uniform(0, 27), 2),
-            primary_account_holder_id=session.query(Members).filter(application.primary_application_id)
+            primary_account_holder_id=my_session.query(Members).filter(application.primary_application_id)
         )
 
         my_session.add(account)
@@ -220,9 +220,9 @@ def create_accounts():
 
 
 def create_users():
-    for member in session.query(Member).all():
+    for member in my_session.query(Member).all():
 
-        applicant = session.query(Applicant).filter(id=member.applicant_id)
+        applicant = my_session.query(Applicant).filter(id=member.applicant_id)
 
         user = User(
             role=random.choice(['User', 'Admin']),
@@ -241,7 +241,7 @@ def create_users():
         
 
 def create_one_time_passcodes():
-    for user in session.query(User).all():
+    for user in my_session.query(User).all():
         
         otp = OneTimePasscode(
             checked=int(fake.boolean(chance_of_getting_true=98)),
@@ -255,8 +255,8 @@ def create_one_time_passcodes():
 
 def create_transactions(count=1000):
 
-    accounts = session.query(Account).all()
-    merchants = session.query(Merchant).all()
+    accounts = my_session.query(Account).all()
+    merchants = my_session.query(Merchant).all()
 
     for _ in range(count):
 
@@ -283,8 +283,8 @@ def create_transactions(count=1000):
         my_session.commit()
 
 
-def create_user_registration_tokens(count=200):
-    for user in session.query(User).all():
+def create_user_registration_tokens():
+    for user in my_session.query(User).all():
         
         urt = UserRegistrationToken(
             token=secrets.token_hex(16),
