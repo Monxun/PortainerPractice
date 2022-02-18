@@ -142,7 +142,7 @@ def create_applications():
     statuses = ['New', 'Pending', 'Approved', 'Denied', 'Needs Review', 'Active']
     types = ['Business', 'Personal', 'Non-Profit', 'Trust']
 
-    for applicant in session.query(Applicant).order_by(Applicant.id):
+    for applicant in session.query(Applicant).all():
 
         application = Application(
             application_status=random.choice(statuses),
