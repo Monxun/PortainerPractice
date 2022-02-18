@@ -1,6 +1,6 @@
 import random
 
-def random_bank_name()
+def random_bank_name():
     banks = [
         'Banktrust Of Alabama',
         'Town Bank Of Westfield',
