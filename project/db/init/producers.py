@@ -139,7 +139,7 @@ def create_merchants(count=5):
 
 def create_applications():
 
-    statuses = ['New', 'Pending', 'Approved', 'Denied', 'Needs Review', 'Active']
+    statuses = ['Denied','Active']
     types = ['Business', 'Personal', 'Non-Profit', 'Trust']
 
     for applicant in my_session.query(Applicant).all():
@@ -299,15 +299,15 @@ def create_user_registration_tokens():
 
 if __name__ == '__main__':
     create_applicants()
-    # create_banks()
-    # create_merchants()
-    # create_applications()
-    # create_branches()
-    # create_members()
-    # create_accounts()
-    # create_users()
-    # create_one_time_passcodes()
-    # create_transactions()
-    # create_user_registration_tokens()
+    create_banks()
+    create_merchants()
+    create_applications()
+    create_branches()
+    create_members()
+    create_accounts()
+    create_users()
+    create_one_time_passcodes()
+    create_transactions()
+    create_user_registration_tokens()
 
     my_session.close()
