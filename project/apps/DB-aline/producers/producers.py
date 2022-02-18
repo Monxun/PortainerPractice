@@ -159,7 +159,7 @@ def create_branches(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        
+
         line2_split = re.split(', |,| ', line2)
         city = line2_split[0]
         state = line2_split[1]
@@ -264,7 +264,7 @@ def create_transactions(count=1000):
             last_modified=fake.date_between(start_date='-1y', end_date='today'),
             method=random.choice(['DEBIT', 'CREDIT']),
             posted_balance=amount,
-            state=fake.state_abbr()
+            state=fake.state_abbr(),
             type=random.choice(['DEBIT', 'CREDIT']),
             account=account,
             merchant_code=merchant.code
