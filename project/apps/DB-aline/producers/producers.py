@@ -36,7 +36,7 @@ Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
 
-def create_applicants(count=100):
+def create_applicants(count=10):
     for i in range(count):
         
         applicant = fake.profile()
@@ -84,7 +84,7 @@ def create_applicants(count=100):
         my_session.commit()
 
 
-def create_banks(count=10):
+def create_banks(count=5):
     for _ in range(count):
 
         address = fake.address()
@@ -109,7 +109,7 @@ def create_banks(count=10):
         my_session.commit()
 
 
-def create_merchants(count=50):
+def create_merchants(count=5):
     for _ in range(count):
 
         address = fake.address()
@@ -155,7 +155,7 @@ def create_applications():
     
         
 
-def create_branches(count=50):
+def create_branches(count=5):
     banks = my_session.query(Bank).all()
     for _ in range(count):
 
@@ -176,7 +176,7 @@ def create_branches(count=50):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.randint(0, 11)  # BANK COUNT
+            bank_id=random.randint(0, 6)  # BANK COUNT
         )
 
         my_session.add(branch)
@@ -253,7 +253,7 @@ def create_one_time_passcodes():
         my_session.commit()
 
 
-def create_transactions(count=1000):
+def create_transactions(count=10):
 
     accounts = my_session.query(Account).all()
     merchants = my_session.query(Merchant).all()
