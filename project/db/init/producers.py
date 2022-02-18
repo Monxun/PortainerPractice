@@ -46,10 +46,10 @@ def create_applicants(count=10):
 
         street = address.split('\n')[0]
 
-        line2_split = re.split(', |,| ', line2)
+        line2_split = re.split(', ', line2)
         city = line2_split[0]
-        state = line2_split[1]
-        zipcode = line2_split[2]
+        state = line2_split[1][0:2]
+        zipcode = line2_split[1][-5:]
 
 
         if applicant['sex'] == 'M':
@@ -92,10 +92,10 @@ def create_banks(count=5):
 
         street = address.split('\n')[0]
         
-        line2_split = re.split(', |,| ', line2)
+        line2_split = re.split(', ', line2)
         city = line2_split[0]
-        state = line2_split[1]
-        zipcode = line2_split[2]
+        state = line2_split[1][0:2]
+        zipcode = line2_split[1][-5:]
 
         bank = Bank(
             address=street,
@@ -117,10 +117,10 @@ def create_merchants(count=5):
 
         street = address.split('\n')[0]
         
-        line2_split = re.split(', |,| ', line2)
+        line2_split = re.split(', ', line2)
         city = line2_split[0]
-        state = line2_split[1]
-        zipcode = line2_split[2]
+        state = line2_split[1][0:2]
+        zipcode = line2_split[1][-5:]
 
         merchant = Merchant(
             code=int(''.join(["{}".format(randint(0, 9)) for num in range(0, 8)])),
@@ -176,7 +176,7 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.randint(1, 6)  # BANK COUNT
+            bank_id=random.randint(2, 7)  # BANK COUNT
         )
 
         my_session.add(branch)
@@ -190,7 +190,7 @@ def create_members():
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=random.randint(1, 6)
+            branch_id=random.randint(2, 7)
         )
 
         my_session.add(member)
