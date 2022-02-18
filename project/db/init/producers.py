@@ -45,7 +45,7 @@ def create_applicants(count=100):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        
+
         line2_split = re.split(', |,| ', line2)
         city = line2_split[0]
         state = line2_split[1]
@@ -62,7 +62,7 @@ def create_applicants(count=100):
             city=city,
             date_of_birth=applicant['birthdate'],
             drivers_license=''.join(random.choices(string.ascii_uppercase + string.digits, k=8)),
-            email=applicant['email'],
+            email=applicant['mail'],
             first_name=applicant['name'].split(' ')[0],
             gender=applicant['sex'],
             income=random.randrange(5000, 500000),
