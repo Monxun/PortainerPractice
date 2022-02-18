@@ -309,3 +309,5 @@ if __name__ == '__main__':
     # create_one_time_passcodes()
     # create_transactions()
     # create_user_registration_tokens()
+
+    my_session.close()
