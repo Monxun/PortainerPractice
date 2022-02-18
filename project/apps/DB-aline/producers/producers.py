@@ -81,6 +81,7 @@ def create_applicants(count=100):
         )
 
         my_session.add(applicant)
+        my_session.commit()
 
 
 def create_banks(count=10):
@@ -105,6 +106,7 @@ def create_banks(count=10):
         )
 
         my_session.add(bank)
+        my_session.commit()
 
 
 def create_merchants(count=50):
@@ -132,6 +134,7 @@ def create_merchants(count=50):
         )
 
         my_session.add(merchant)
+        my_session.commit()
 
 
 def create_applications():
@@ -148,6 +151,7 @@ def create_applications():
         )
 
         my_session.add(application)
+        my_session.commit()
     
         
 
@@ -176,6 +180,7 @@ def create_branches(count=50):
         )
 
         my_session.add(branch)
+        my_session.commit()
 
 
 def create_members():
@@ -189,6 +194,7 @@ def create_members():
         )
 
         my_session.add(member)
+        my_session.commit()
 
 
 def create_accounts():
@@ -210,6 +216,7 @@ def create_accounts():
         )
 
         my_session.add(account)
+        my_session.commit()
 
 
 def create_users():
@@ -230,6 +237,7 @@ def create_users():
         )
 
         my_session.add(user)
+        my_session.commit()
         
 
 def create_one_time_passcodes():
@@ -242,6 +250,7 @@ def create_one_time_passcodes():
         )
 
         my_session.add(otp)
+        my_session.commit()
 
 
 def create_transactions(count=1000):
@@ -271,6 +280,7 @@ def create_transactions(count=1000):
         )
         
         my_session.add(transaction)
+        my_session.commit()
 
 
 def create_user_registration_tokens(count=200):
@@ -284,6 +294,7 @@ def create_user_registration_tokens(count=200):
         )
 
         my_session.add(urt)
+        my_session.commit()
 
 
 if __name__ == '__main__':
