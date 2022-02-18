@@ -90,7 +90,11 @@ def create_banks(count=10):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         bank = Bank(
             address=street,
@@ -110,7 +114,11 @@ def create_merchants(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         merchant = Merchant(
             code=int(''.join(["{}".format(randint(0, 9)) for num in range(0, 8)])),
@@ -151,7 +159,11 @@ def create_branches(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         branch = Branch(
             address=street,

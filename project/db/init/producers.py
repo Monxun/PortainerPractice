@@ -51,6 +51,7 @@ def create_applicants(count=100):
         state = line2_split[1]
         zipcode = line2_split[2]
 
+
         if applicant['sex'] == 'M':
             middle_name = fake.name_male().split(' ')[0]
         else:
@@ -89,7 +90,11 @@ def create_banks(count=10):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         bank = Bank(
             address=street,
@@ -109,7 +114,11 @@ def create_merchants(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         merchant = Merchant(
             code=int(''.join(["{}".format(randint(0, 9)) for num in range(0, 8)])),
@@ -150,7 +159,11 @@ def create_branches(count=50):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         branch = Branch(
             address=street,
@@ -163,7 +176,7 @@ def create_branches(count=50):
         )
 
         my_session.add(branch)
-        
+
 
 def create_members():
     branches = session.query(Branch).all()
@@ -251,7 +264,7 @@ def create_transactions(count=1000):
             last_modified=fake.date_between(start_date='-1y', end_date='today'),
             method=random.choice(['DEBIT', 'CREDIT']),
             posted_balance=amount,
-            state=fake.state_abbr(),
+            state=fake.state_abbr()
             type=random.choice(['DEBIT', 'CREDIT']),
             account=account,
             merchant_code=merchant.code
