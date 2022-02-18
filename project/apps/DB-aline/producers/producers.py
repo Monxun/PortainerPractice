@@ -176,7 +176,7 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.randint(0, 5)  # BANK COUNT
+            bank_id=random.randint(1, 6)  # BANK COUNT
         )
 
         my_session.add(branch)
@@ -189,7 +189,7 @@ def create_members():
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=random.randint(0, 5)
+            branch_id=random.randint(1, 6)
         )
 
         my_session.add(member)
