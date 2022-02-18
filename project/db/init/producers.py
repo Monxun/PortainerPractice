@@ -190,7 +190,7 @@ def create_members():
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=random.shuffle(branches)[0]
+            branch_id=random.randint(0, 5)
         )
 
         my_session.add(member)

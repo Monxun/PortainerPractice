@@ -184,13 +184,12 @@ def create_branches(count=5):
 
 
 def create_members():
-    branches = my_session.query(Branch).all()
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=random.shuffle(branches)[0]
+            branch_id=random.randint(0, 5)
         )
 
         my_session.add(member)
