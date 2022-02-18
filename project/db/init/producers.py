@@ -245,7 +245,7 @@ def create_transactions(count=1000):
             last_modified=fake.date_between(start_date='-1y', end_date='today'),
             method=random.choice(['DEBIT', 'CREDIT']),
             posted_balance=amount,
-            state=fake.state_abbr()
+            state=fake.state_abbr(),
             type=random.choice(['DEBIT', 'CREDIT']),
             account=account,
             merchant_code=merchant.code
