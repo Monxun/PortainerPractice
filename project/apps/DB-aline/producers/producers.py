@@ -18,7 +18,7 @@ from faker import Faker
 # DATABASE CONNECTOR
 
 engine = sqlalchemy.create_engine(
-    'mysql+mysqlconnector://user:root@localhost:3306/alinedb',
+    'mysql+pymysql://user:root@localhost:3306/alinedb',
     echo=True
 )
 
