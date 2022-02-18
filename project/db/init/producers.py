@@ -45,7 +45,11 @@ def create_applicants(count=100):
         line2 = address.split('\n')[1]
 
         street = address.split('\n')[0]
-        city, state, zipcode = tuple(re.split(', |,| ', line2))
+        
+        line2_split = re.split(', |,| ', line2)
+        city = line2_split[0]
+        state = line2_split[1]
+        zipcode = line2_split[2]
 
         if applicant['sex'] == 'M':
             middle_name = fake.name_male().split(' ')[0]
