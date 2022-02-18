@@ -46,7 +46,7 @@ def create_applicants(count=10):
 
         street = address.split('\n')[0]
 
-        line2_split = re.split(', ', line2)
+        line2_split = line2.split(', ')
         city = line2_split[0]
         state = line2_split[1][0:2]
         zipcode = line2_split[1][-5:]

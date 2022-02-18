@@ -1,4 +1,8 @@
 import random
+from faker import Faker
+
+fake = Faker()
+
 
 def random_bank_name():
     banks = [
@@ -27,3 +31,35 @@ def random_bank_name():
     rand = random.randrange(0, 19)
     
     return banks[rand]
+
+
+def random_address(applicant):
+
+    if applicant:
+
+        address = applicant['address']
+        line2 = address.split('\n')[1]
+
+        street = address.split('\n')[0]
+
+        line2_split = line2.split(', ')
+        city = line2_split[0]
+        state = line2_split[1][0:2]
+        zipcode = line2_split[1][-5:]
+
+        return street, city, state, zipcode
+    
+    else:
+
+        address = fake.address()
+
+        line2 = address.split('\n')[1]
+
+        street = address.split('\n')[0]
+
+        line2_split = line2.split(', ')
+        city = line2_split[0]
+        state = line2_split[1][0:2]
+        zipcode = line2_split[1][-5:]
+
+        return street, city, state, zipcode
