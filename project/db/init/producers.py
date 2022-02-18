@@ -176,7 +176,7 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.randint(0, 6)  # BANK COUNT
+            bank_id=random.randint(0, 5)  # BANK COUNT
         )
 
         my_session.add(branch)

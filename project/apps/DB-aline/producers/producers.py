@@ -176,7 +176,7 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.randint(0, 6)  # BANK COUNT
+            bank_id=random.randint(0, 5)  # BANK COUNT
         )
 
         my_session.add(branch)
@@ -298,10 +298,10 @@ def create_user_registration_tokens():
 
 
 if __name__ == '__main__':
-    create_applicants()
-    create_banks()
-    create_merchants()
-    create_applications()
+    # create_applicants()
+    # create_banks()
+    # create_merchants()
+    # create_applications()
     create_branches()
     create_members()
     create_accounts()
