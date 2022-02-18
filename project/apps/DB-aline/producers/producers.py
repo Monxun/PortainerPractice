@@ -31,7 +31,6 @@ def create_applicants(count=100):
     for i in range(count):
 
         applicant = Applicant(
-            id=i,
             address=fake.address()
         )
 
