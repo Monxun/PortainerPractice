@@ -50,6 +50,7 @@ Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
 
+# APPLICANT
 def create_applicants(count=10):
     for i in range(count):
         
@@ -84,6 +85,7 @@ def create_applicants(count=10):
         my_session.commit()
 
 
+# BANK
 def create_banks(count=5):
     for _ in range(count):
 
@@ -101,6 +103,7 @@ def create_banks(count=5):
         my_session.commit()
 
 
+# MERCHANT
 def create_merchants(count=5):
     for _ in range(count):
 
@@ -121,6 +124,7 @@ def create_merchants(count=5):
         my_session.commit()
 
 
+# APPLICATION
 def create_applications():
 
     types = ['Business', 'Personal', 'Non-Profit', 'Trust']
@@ -136,14 +140,13 @@ def create_applications():
         my_session.add(application)
         my_session.commit()
     
-        
 
+# BRANCH
 def create_branches(count=5):
+    bank_ids = [id for id in my_session.query(Bank.id).distinct()]
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
-
-        bank = my_session.query(Bank).order_by(func.random()).limit(1).all()
 
         branch = Branch(
             address=street,
@@ -152,28 +155,30 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=bank.id  # BANK COUNT
+            bank_id=random.shuffle(bank_ids)[0]
         )
 
         my_session.add(branch)
         my_session.commit()
 
 
+# MEMBER
 def create_members():
+    branch_ids = [id for id in my_session.query(Branch.id).distinct()]
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
-        branch = my_session.query(Branch).order_by(func.random()).limit(1).all()
 
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=branch.id
+            branch_id=random.shuffle(branch_ids)[0]
         )
 
         my_session.add(member)
         my_session.commit()
 
 
+# ACCOUNT
 def create_accounts():
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         balance = random.randrange(-5000, 10000000)
@@ -196,9 +201,9 @@ def create_accounts():
         my_session.commit()
 
 
+# USER
 def create_users():
     for member in my_session.query(Member).all():
-
         applicant = my_session.query(Applicant).filter(id=member.applicant_id)
 
         user = User(
@@ -217,6 +222,7 @@ def create_users():
         my_session.commit()
         
 
+# ONETIMEPASSCODE
 def create_one_time_passcodes():
     for user in my_session.query(User).all():
         
@@ -230,11 +236,17 @@ def create_one_time_passcodes():
         my_session.commit()
 
 
+# TRANSACTIONS
 def create_transactions(count=10):
+
+    account_ids = [id for id in my_session.query(Account.id).distinct()]
+    merchant_codes = [id for id in my_session.query(Merchant.code).distinct()]
+
     for _ in range(count):
 
-        account = my_session.query(Branch).order_by(func.random()).limit(1).all()
-        merchant = my_session.query(Branch).order_by(func.random()).limit(1).all()
+        account_id = random.shuffle(account_ids)
+        account = my_session.query(Account).filter_by(Account.id==account_id).all()
+
         date = fake.date_between(start_date='-1y', end_date='today')
         amount = round(random.uniform(0, 20000), 2)
 
@@ -248,8 +260,8 @@ def create_transactions(count=10):
             posted_balance=amount,
             state=fake.state_abbr(),
             type=random.choice(['DEBIT', 'CREDIT']),
-            account=account.id,
-            merchant_code=merchant.code
+            account=random.shuffle(account_ids)[0],
+            merchant_code=random.shuffle(merchant_codes)[0]
         )
         
         my_session.add(transaction)
