@@ -33,33 +33,20 @@ def random_bank_name():
     return banks[rand]
 
 
-def random_address(applicant):
+def random_address():
 
-    if applicant:
+    street = fake.street_address()
+    city = fake.city()
+    state = fake.state_abbr()
+    zipcode = str(fake.postcode())
 
-        address = applicant['address']
-        line2 = address.split('\n')[1]
+    return tuple(street, city, state, zipcode)
 
-        street = address.split('\n')[0]
 
-        line2_split = line2.split(', ')
-        city = line2_split[0]
-        state = line2_split[1][0:2]
-        zipcode = line2_split[1][-5:]
-
-        return street, city, state, zipcode
-    
+def random_middle_name(applicant):
+    if applicant['sex'] == 'M':
+            middle_name = fake.name_male().split(' ')[0]
     else:
+        middle_name = fake.name_female().split(' ')[0]
 
-        address = fake.address()
-
-        line2 = address.split('\n')[1]
-
-        street = address.split('\n')[0]
-
-        line2_split = line2.split(', ')
-        city = line2_split[0]
-        state = line2_split[1][0:2]
-        zipcode = line2_split[1][-5:]
-
-        return street, city, state, zipcode
+    return middle_name

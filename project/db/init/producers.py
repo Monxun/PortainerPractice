@@ -8,8 +8,21 @@ import sqlalchemy
 from sqlalchemy import inspect
 from sqlalchemy.orm import session
 
-from models import *
-from utils import random_bank_name
+from models import (
+    Applicant, 
+    Bank, 
+    Merchant, 
+    Application, 
+    Branch,
+    Member,
+    Account,
+    User,
+    OneTimePasscode,
+    Transaction,
+    UserRegistrationToken
+)
+
+from utils import random_bank_name, random_address, random_middle_name
 
 from faker import Faker
 
@@ -41,29 +54,15 @@ def create_applicants(count=10):
         
         applicant = fake.profile()
 
-        address = applicant['address']
-        line2 = address.split('\n')[1]
-
-        street = address.split('\n')[0]
-
-        line2_split = line2.split(', ')
-        city = line2_split[0]
-        state = line2_split[1][0:2]
-        zipcode = line2_split[1][-5:]
-
-
-        if applicant['sex'] == 'M':
-            middle_name = fake.name_male().split(' ')[0]
-        else:
-            middle_name = fake.name_female().split(' ')[0]
-
+        street, city, state, zipcode = random_address()
+        middle_name = random_middle_name(applicant)
 
         applicant = Applicant(
             address=street,
             city=city,
             date_of_birth=applicant['birthdate'],
             drivers_license=''.join(random.choices(string.ascii_uppercase + string.digits, k=8)),
-            email=applicant['mail'],
+            email=fake.free_email(),
             first_name=applicant['name'].split(' ')[0],
             gender=applicant['sex'],
             income=random.randrange(5000, 500000),
@@ -87,15 +86,7 @@ def create_applicants(count=10):
 def create_banks(count=5):
     for _ in range(count):
 
-        address = fake.address()
-        line2 = address.split('\n')[1]
-
-        street = address.split('\n')[0]
-        
-        line2_split = re.split(', ', line2)
-        city = line2_split[0]
-        state = line2_split[1][0:2]
-        zipcode = line2_split[1][-5:]
+        street, city, state, zipcode = random_address()
 
         bank = Bank(
             address=street,
@@ -112,15 +103,7 @@ def create_banks(count=5):
 def create_merchants(count=5):
     for _ in range(count):
 
-        address = fake.address()
-        line2 = address.split('\n')[1]
-
-        street = address.split('\n')[0]
-        
-        line2_split = re.split(', ', line2)
-        city = line2_split[0]
-        state = line2_split[1][0:2]
-        zipcode = line2_split[1][-5:]
+        street, city, state, zipcode = random_address()
 
         merchant = Merchant(
             code=int(''.join(["{}".format(randint(0, 9)) for num in range(0, 8)])),
@@ -139,13 +122,12 @@ def create_merchants(count=5):
 
 def create_applications():
 
-    statuses = ['Denied','Active']
     types = ['Business', 'Personal', 'Non-Profit', 'Trust']
 
     for applicant in my_session.query(Applicant).all():
 
         application = Application(
-            application_status=random.choice(statuses),
+            application_status=random.choice(['Denied','Active']),
             application_type=random.choice(types),
             primary_applicant_id=applicant.id,
         )
@@ -159,15 +141,7 @@ def create_branches(count=5):
     banks = my_session.query(Bank).all()
     for _ in range(count):
 
-        address = fake.address()
-        line2 = address.split('\n')[1]
-
-        street = address.split('\n')[0]
-
-        line2_split = re.split(', |,| ', line2)
-        city = line2_split[0]
-        state = line2_split[1]
-        zipcode = line2_split[2]
+        street, city, state, zipcode = random_address()
 
         branch = Branch(
             address=street,
@@ -187,10 +161,12 @@ def create_members():
     branches = my_session.query(Branch).all()
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
+        branch = random.shuffle(branches)[0]
+
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=random.randint(2, 7)
+            branch_id=branch.id
         )
 
         my_session.add(member)
@@ -212,7 +188,7 @@ def create_accounts():
             status=status,
             available_balance=balance,
             apy=round(random.uniform(0, 27), 2),
-            primary_account_holder_id=my_session.query(Members).filter(application.primary_application_id)
+            primary_account_holder_id=my_session.query(Member).filter(application.primary_application_id)
         )
 
         my_session.add(account)
@@ -275,7 +251,7 @@ def create_transactions(count=10):
             posted_balance=amount,
             state=fake.state_abbr(),
             type=random.choice(['DEBIT', 'CREDIT']),
-            account=account,
+            account=account.id,
             merchant_code=merchant.code
         )
         
