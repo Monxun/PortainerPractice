@@ -1,11 +1,14 @@
 import re
-import random
 import string
-from random import randint
 import secrets
+import random
+from random import randint
+from datetime import datetime
+
 
 import sqlalchemy
 from sqlalchemy import inspect
+from sqlalchemy import select
 from sqlalchemy.orm import session
 from  sqlalchemy.sql.expression import func
 
@@ -52,7 +55,7 @@ my_session = Session()
 
 # APPLICANT
 def create_applicants(count=10):
-    for i in range(count):
+    for _ in range(count):
         
         applicant = fake.profile()
 
@@ -181,7 +184,9 @@ def create_members():
 
 # ACCOUNT
 def create_accounts():
-    for application in my_session.query(Application).filter(Application.application_status=='Active'):
+    for member in my_session.query(Member).all():
+
+        print(f"member id: {member.id}")
         balance = random.randrange(-5000, 10000000)
         if balance >= 0:
             status = 'CURRENT'
@@ -189,15 +194,14 @@ def create_accounts():
             status = 'OVERDRAWN'
 
         account = Account(
-            account_type=application.application_type,
+            account_type=random.choice(['CHECKING', 'SAVING', 'CHECKING_AND_SAVINGS', 'CREDIT_CARD', 'LOAN']),
             account_number=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             balance=balance,
             status=status,
             available_balance=balance,
             apy=round(random.uniform(0, 27), 2),
-            primary_account_holder_id=my_session.query(Member).filter(application.primary_application_id)
+            primary_account_holder_id=member.id
         )
-
         my_session.add(account)
         my_session.commit()
 
@@ -205,18 +209,19 @@ def create_accounts():
 # USER
 def create_users():
     for member in my_session.query(Member).all():
-        applicant = my_session.query(Applicant).filter(id=member.applicant_id)
+        print(member.membership_id)
+        applicant = my_session.query(Applicant).get(member.applicant_id)
 
         user = User(
-            role=random.choice(['User', 'Admin']),
+            role=random.choice(['admin', 'member']),
             enabled=fake.boolean(chance_of_getting_true=90),
             password=secrets.token_hex(16),
-            username=applicant.username,
+            username=fake.simple_profile()['username'],
             email=applicant.email,
             first_name=applicant.first_name,
             last_name=applicant.last_name,
             phone=applicant.phone,
-            member_id=member.membership_id
+            member_id=member.id
         )
 
         my_session.add(user)
@@ -240,29 +245,40 @@ def create_one_time_passcodes():
 # TRANSACTIONS
 def create_transactions(count=10):
 
-    account_ids = [id for id in my_session.query(Account.id).distinct()]
-    merchant_codes = [id for id in my_session.query(Merchant.code).distinct()]
+    account_ids = [account.id for account in my_session.query(Account).all()]
+    print(account_ids)
+    merchant_codes = [merchant.code for merchant in my_session.query(Merchant).all()]
+    print(merchant_codes)
 
     for _ in range(count):
 
-        account_id = random.shuffle(account_ids)
-        account = my_session.query(Account).filter_by(Account.id==account_id).all()
+        account_id = random.choice(account_ids)
+        print(f"account id: {account_id}")
+        account = my_session.query(Account).get(account_id)
 
-        date = fake.date_between(start_date='-1y', end_date='today')
-        amount = round(random.uniform(0, 20000), 2)
+        date = datetime.now()
+        amount = round(random.uniform(0, 20000))
+
+        print (f"account id: {account.id}, date: {date}, amount: {amount}")
+        print(f"Description: {fake.bs()}")
+        print(f"Balance: {account.balance}")
+        print(f"Method: {random.choice(['ACH', 'ATM', 'CREDIT_CARD', 'DEBIT_CARD', 'APP'])}")
+        print(f"Account: {random.choice(account_ids)}")
+        print(f"Merchant Code: {random.choice(merchant_codes)}")
 
         transaction = Transaction(
             amount=amount,
-            date=date,
+            date=datetime.now(),
             description=fake.bs(),
             initial_balance=account.balance,
-            last_modified=fake.date_between(start_date='-1y', end_date='today'),
-            method=random.choice(['DEBIT', 'CREDIT']),
+            last_modified=datetime.now(),
+            method=random.choice(['ACH', 'ATM', 'CREDIT_CARD', 'DEBIT_CARD', 'APP']),
             posted_balance=amount,
             state=fake.state_abbr(),
-            type=random.choice(['DEBIT', 'CREDIT']),
-            account=random.shuffle(account_ids)[0],
-            merchant_code=random.shuffle(merchant_codes)[0]
+            status=random.choice(['COMPLETED', 'DECLINED']),
+            type=random.choice(['DEPOSIT', 'WITHDRAWAL', 'TRANSFER_IN', 'TRANSFER_OUT', 'PURCHASE', 'PAYMENT', 'REFUND', 'VOID']),
+            account_id=account.id,
+            merchant_code=random.choice(merchant_codes)
         )
         
         my_session.add(transaction)
@@ -284,16 +300,16 @@ def create_user_registration_tokens():
 
 
 if __name__ == '__main__':
-    create_applicants()
-    create_banks()
-    create_merchants()
-    create_applications()
-    create_branches()
-    create_members()
-    create_accounts()
-    create_users()
-    create_one_time_passcodes()
-    create_transactions()
+    # create_applicants()
+    # create_banks()
+    # create_merchants()
+    # create_applications()
+    # create_branches()
+    # create_members()
+    # create_accounts()
+    # create_users()
+    # create_one_time_passcodes()
+    # create_transactions()
     create_user_registration_tokens()
 
     my_session.close()

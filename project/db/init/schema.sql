@@ -126,7 +126,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `alinedb`.`account` (
   `account_type` VARCHAR(31) NOT NULL,
-  `id` BIGINT NOT NULL,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `account_number` VARCHAR(255) NULL DEFAULT NULL,
   `balance` INT NOT NULL,
   `status` VARCHAR(255) NULL DEFAULT NULL,
@@ -258,7 +258,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `alinedb`.`one_time_passcode`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `alinedb`.`one_time_passcode` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `checked` BIT(1) NOT NULL,
   `otp` VARCHAR(255) NULL DEFAULT NULL,
   `user_id` BIGINT NOT NULL,
