@@ -143,8 +143,8 @@ def create_applications():
 
 # BRANCH
 def create_branches(count=5):
-    bank_ids = [int(id) for id in my_session.query(Bank.id).distinct()]
-    print(bank_ids)
+    banks = my_session.query(Bank).all()
+    print(banks)
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -156,7 +156,7 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.shuffle(bank_ids)[0]
+            bank_id=3
         )
 
         my_session.add(branch)
