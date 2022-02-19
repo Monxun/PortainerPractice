@@ -7,6 +7,7 @@ import secrets
 import sqlalchemy
 from sqlalchemy import inspect
 from sqlalchemy.orm import session
+from  sqlalchemy.sql.expression import func
 
 from models import (
     Applicant, 
@@ -138,11 +139,11 @@ def create_applications():
         
 
 def create_branches(count=5):
-    banks = my_session.query(Bank).all()
-    print(banks)
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
+
+        bank = my_session.query(Bank).order_by(func.random()).limit(1).all()
 
         branch = Branch(
             address=street,
@@ -151,7 +152,7 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=random.randint(2, 7)  # BANK COUNT
+            bank_id=bank.id  # BANK COUNT
         )
 
         my_session.add(branch)
@@ -159,11 +160,9 @@ def create_branches(count=5):
 
 
 def create_members():
-    branches = my_session.query(Branch).all()
-    print(branches)
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
-        branch = random.shuffle(branches)[0]
+        branch = my_session.query(Branch).order_by(func.random()).limit(1).all()
 
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
@@ -232,14 +231,10 @@ def create_one_time_passcodes():
 
 
 def create_transactions(count=10):
-
-    accounts = my_session.query(Account).all()
-    merchants = my_session.query(Merchant).all()
-
     for _ in range(count):
 
-        account = random.shuffle(accounts)[0]
-        merchant = random.shuffle(merchants)[0]
+        account = my_session.query(Branch).order_by(func.random()).limit(1).all()
+        merchant = my_session.query(Branch).order_by(func.random()).limit(1).all()
         date = fake.date_between(start_date='-1y', end_date='today')
         amount = round(random.uniform(0, 20000), 2)
 
