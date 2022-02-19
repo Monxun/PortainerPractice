@@ -139,6 +139,7 @@ def create_applications():
 
 def create_branches(count=5):
     banks = my_session.query(Bank).all()
+    print(banks)
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -159,6 +160,7 @@ def create_branches(count=5):
 
 def create_members():
     branches = my_session.query(Branch).all()
+    print(branches)
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
         branch = random.shuffle(branches)[0]
