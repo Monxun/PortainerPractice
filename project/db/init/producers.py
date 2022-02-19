@@ -143,7 +143,7 @@ def create_applications():
 
 # BRANCH
 def create_branches(count=5):
-    bank_ids = [id for id in my_session.query(Bank.id).distinct()]
+    bank_ids = [int(id) for id in my_session.query(Bank.id).distinct()]
     print(bank_ids)
     for _ in range(count):
 
