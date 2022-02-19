@@ -40,7 +40,7 @@ def random_address():
     state = fake.state_abbr()
     zipcode = str(fake.postcode())
 
-    return tuple(street, city, state, zipcode)
+    return tuple([street, city, state, zipcode])
 
 
 def random_middle_name(applicant):
