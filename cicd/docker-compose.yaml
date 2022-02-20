@@ -1,0 +1,153 @@
+version: !!str 3
+
+services:
+  jenkins:
+    image: ssbostan/jenkins:lts-slim
+    restart: unless-stopped
+    environment:
+      - "DOCKER_HOST=tcp://docker:2376"
+      - "DOCKER_TLS_VERIFY=1"
+    volumes:
+      - "jenkins_data:/var/jenkins_home"
+      - "docker_certs_client:/var/jenkins_home/.docker"
+    networks:
+      - cicd
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    labels:
+      - "app.dws.name=jenkins"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+  registry:
+    image: registry:2
+    restart: unless-stopped
+    environment:
+      - "REGISTRY_FIELDS_ENVIRONMENT=production"
+      - "REGISTRY_HTTP_ADDR=0.0.0.0:443"
+      - "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.crt"
+      - "REGISTRY_HTTP_TLS_KEY=/certs/registry.key"
+    volumes:
+      - "registry_data:/var/lib/registry"
+      - "./certs:/certs"
+    networks:
+      - cicd
+    ports:
+      - "443:443"
+    labels:
+      - "app.dws.name=registry"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+  docker:
+    image: docker:dind
+    restart: unless-stopped
+    privileged: true
+    command: ["--insecure-registry", "$JENKINS_DOCKER_REGISTRY_IP"]
+    volumes:
+      - "docker_data:/var/lib/docker"
+      - "docker_certs:/certs"
+      - "docker_certs_client:/certs/client"
+      - "jenkins_data:/var/jenkins_home"
+    networks:
+      - cicd
+    expose:
+      - "2376"
+    labels:
+      - "app.dws.name=docker"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+  gitea:
+    image: gitea/gitea:1.14
+    restart: unless-stopped
+    volumes:
+      - "gitea_data:/data"
+    networks:
+      - cicd
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    labels:
+      - "app.dws.name=gitea"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+  sonarqube:
+    image: sonarqube:7.6-community 
+    restart: unless-stopped
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    networks:
+      - cicd
+    ports:
+      - '9001:9000'
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://postgres:5432/sonar
+    labels:
+      - "app.dws.name=sonarqube"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+  postgres:
+    image: postgres
+    networks:
+      - cicd
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    labels:
+      - "app.dws.name=postgres"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+  mysql:
+    image: mysql:5.7
+    networks:
+      - cicd
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - mysql:/var/lib/mysql
+    labels:
+      - "app.dws.name=mysql"
+      - "app.dws.part-of=jenkins"
+      - "app.dws.scope=devops-with-saeid"
+      - "app.dws.created-by=ssbostan"
+
+volumes:
+  jenkins_data:
+  registry_data:
+  docker_data:
+  docker_certs:
+  docker_certs_client:
+  gitea_data:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+  mysql:

@@ -1,0 +1,80 @@
+version: '2'
+
+services:
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: JENKINS
+    volumes:
+       - jenkins_data:/var/jenkins_home
+    networks:
+      - CICD
+    ports:
+      - '8081:8080'
+      - '50001:50000'
+
+  sonarqube:
+    image: sonarqube:7.6-community 
+    container_name: SONARQUBE
+    volumes:
+      - sonarqube_conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    networks:
+      - CICD
+    ports:
+      - '9001:9000'
+    environment:
+      - sonar.jdbc.username=sonar
+      - sonar.jdbc.password=sonar
+      - sonar.jdbc.url=jdbc:postgresql://postgres:5432/sonar
+
+  registry:
+    image: registry
+    container_name: REGISTRY
+    networks:
+      - CICD
+    ports:
+      - '5000:5000'
+
+  postgres:
+    image: postgres
+    networks:
+      - CICD
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:5.7
+    networks:
+      - CICD
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - mysql:/var/lib/mysql
+
+networks:
+  sonarnet:
+    driver: bridge
+
+volumes:
+  sonarqube_conf:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_bundled-plugins:
+  postgresql:
+  postgresql_data:
+  jenkins_data:
+  mysql:
