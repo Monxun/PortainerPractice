@@ -53,8 +53,17 @@ Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
 
+# SET COUNTS HERE
+counts = {}
+counts['applicants'] = 10
+counts['banks'] = 5
+counts['merchants'] = 5
+counts['branches'] = 5
+counts['transactions'] = 10
+
+
 # APPLICANT
-def create_applicants(count=10):
+def create_applicants(count=counts['applicants']):
     for _ in range(count):
         
         applicant = fake.profile()
@@ -65,6 +74,7 @@ def create_applicants(count=10):
         applicant = Applicant(
             address=street,
             city=city,
+            created_at=datetime.now(),
             date_of_birth=applicant['birthdate'],
             drivers_license=''.join(random.choices(string.ascii_uppercase + string.digits, k=8)),
             email=fake.free_email(),
@@ -85,11 +95,11 @@ def create_applicants(count=10):
         )
 
         my_session.add(applicant)
-        my_session.commit()
+    my_session.commit()
 
 
 # BANK
-def create_banks(count=5):
+def create_banks(count=counts['banks']):
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -103,11 +113,11 @@ def create_banks(count=5):
         )
 
         my_session.add(bank)
-        my_session.commit()
+    my_session.commit()
 
 
 # MERCHANT
-def create_merchants(count=5):
+def create_merchants(count=counts['merchants']):
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -118,13 +128,13 @@ def create_merchants(count=5):
             city=city,
             description=fake.bs(),
             name=fake.company(),
-            registered_at=fake.date_between(start_date='-30y', end_date='today'),
+            registered_at=datetime.now(),
             state=state,
             zipcode=zipcode
         )
 
         my_session.add(merchant)
-        my_session.commit()
+    my_session.commit()
 
 
 # APPLICATION
@@ -141,13 +151,12 @@ def create_applications():
         )
 
         my_session.add(application)
-        my_session.commit()
+    my_session.commit()
     
 
 # BRANCH
-def create_branches(count=5):
-    banks = my_session.query(Bank).all()
-    print(banks)
+def create_branches(count=counts['branches']):
+    bank_ids = [bank.id for bank in my_session.query(Bank).all()]
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -159,35 +168,34 @@ def create_branches(count=5):
             phone=fake.phone_number(),
             state=state,
             zipcode=zipcode,
-            bank_id=3
+            bank_id=random.choice(bank_ids)
         )
 
         my_session.add(branch)
-        my_session.commit()
+    my_session.commit()
 
 
 # MEMBER
 def create_members():
-    branch_ids = [id for id in my_session.query(Branch.id).distinct()]
+    branch_ids = [branch.id for branch in my_session.query(Branch).all()]
     for application in my_session.query(Application).filter(Application.application_status=='Active'):
         
-
         member = Member(
             membership_id=''.join(["{}".format(randint(0, 9)) for num in range(0, 12)]),
             applicant_id=application.primary_applicant_id,
-            branch_id=4
+            branch_id=random.choice(branch_ids)
         )
 
         my_session.add(member)
-        my_session.commit()
+    my_session.commit()
 
 
 # ACCOUNT
 def create_accounts():
     for member in my_session.query(Member).all():
 
-        print(f"member id: {member.id}")
         balance = random.randrange(-5000, 10000000)
+        
         if balance >= 0:
             status = 'CURRENT'
         else:
@@ -203,13 +211,12 @@ def create_accounts():
             primary_account_holder_id=member.id
         )
         my_session.add(account)
-        my_session.commit()
+    my_session.commit()
 
 
 # USER
 def create_users():
     for member in my_session.query(Member).all():
-        print(member.membership_id)
         applicant = my_session.query(Applicant).get(member.applicant_id)
 
         user = User(
@@ -225,7 +232,7 @@ def create_users():
         )
 
         my_session.add(user)
-        my_session.commit()
+    my_session.commit()
         
 
 # ONETIMEPASSCODE
@@ -239,32 +246,20 @@ def create_one_time_passcodes():
         )
 
         my_session.add(otp)
-        my_session.commit()
+    my_session.commit()
 
 
 # TRANSACTIONS
-def create_transactions(count=10):
+def create_transactions(count=counts['transactions']):
 
     account_ids = [account.id for account in my_session.query(Account).all()]
-    print(account_ids)
     merchant_codes = [merchant.code for merchant in my_session.query(Merchant).all()]
-    print(merchant_codes)
 
     for _ in range(count):
 
         account_id = random.choice(account_ids)
-        print(f"account id: {account_id}")
         account = my_session.query(Account).get(account_id)
-
-        date = datetime.now()
         amount = round(random.uniform(0, 20000))
-
-        print (f"account id: {account.id}, date: {date}, amount: {amount}")
-        print(f"Description: {fake.bs()}")
-        print(f"Balance: {account.balance}")
-        print(f"Method: {random.choice(['ACH', 'ATM', 'CREDIT_CARD', 'DEBIT_CARD', 'APP'])}")
-        print(f"Account: {random.choice(account_ids)}")
-        print(f"Merchant Code: {random.choice(merchant_codes)}")
 
         transaction = Transaction(
             amount=amount,
@@ -282,7 +277,7 @@ def create_transactions(count=10):
         )
         
         my_session.add(transaction)
-        my_session.commit()
+    my_session.commit()
 
 
 def create_user_registration_tokens():
@@ -296,20 +291,21 @@ def create_user_registration_tokens():
         )
 
         my_session.add(urt)
-        my_session.commit()
+    my_session.commit()
 
 
 if __name__ == '__main__':
-    # create_applicants()
-    # create_banks()
-    # create_merchants()
-    # create_applications()
-    # create_branches()
-    # create_members()
-    # create_accounts()
-    # create_users()
-    # create_one_time_passcodes()
-    # create_transactions()
+
+    create_applicants()
+    create_banks()
+    create_merchants()
+    create_applications()
+    create_branches()
+    create_members()
+    create_accounts()
+    create_users()
+    create_one_time_passcodes()
+    create_transactions()
     create_user_registration_tokens()
 
     my_session.close()

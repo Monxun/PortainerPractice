@@ -65,6 +65,7 @@ def create_applicants(count=10):
         applicant = Applicant(
             address=street,
             city=city,
+            created_at=datetime.now(),
             date_of_birth=applicant['birthdate'],
             drivers_license=''.join(random.choices(string.ascii_uppercase + string.digits, k=8)),
             email=fake.free_email(),
@@ -118,7 +119,7 @@ def create_merchants(count=5):
             city=city,
             description=fake.bs(),
             name=fake.company(),
-            registered_at=fake.date_between(start_date='-30y', end_date='today'),
+            registered_at=datetime.now(),
             state=state,
             zipcode=zipcode
         )
