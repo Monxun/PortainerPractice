@@ -14,7 +14,7 @@ services:
     networks:
       - cicd
     ports:
-      - "8080:8080"
+      - "8090:8080"
       - "50000:50000"
     labels:
       - "app.dws.name=jenkins"
