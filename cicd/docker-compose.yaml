@@ -49,7 +49,7 @@ services:
     container_name: DOCKER
     restart: unless-stopped
     privileged: true
-    command: ["--insecure-registry", "$JENKINS_DOCKER_REGISTRY_IP"]
+    command: ["--insecure-registry", "REGISTRY:4444"]
     volumes:
       - "docker_data:/var/lib/docker"
       - "docker_certs:/certs"
