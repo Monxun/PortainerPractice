@@ -6,50 +6,50 @@ services:
     image: ms-gateway
     container_name: ms-gateway
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.gateway
     ports:
       - "8080:8080"
-    env_file: ./dev/dockerfiles/env/.env.gateway
+    env_file: ./dockerfiles/env/.env.gateway
 
   ms-bank:
     image: ms-bank
     container_name: ms-bank
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.bank
     ports:
       - '8083:8083'
-    env_file: ./dev/dockerfiles/env/.env.bank
+    env_file: ./dockerfiles/env/.env.bank
 
   ms-transaction:
     image: ms-transaction
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.transaction
     ports:
       - '8073:8073'
-    env_file: ./dev/dockerfiles/env/.env.transaction
+    env_file: ./dockerfiles/env/.env.transaction
 
   ms-underwriter:
     image: ms-underwriter
     container_name: ms-underwriter
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.underwriter
     ports:
       - '8071:8071'
-    env_file: ./dev/dockerfiles/env/.env.underwriter
+    env_file: ./dockerfiles/env/.env.underwriter
 
   ms-user:
     image: ms-user
     container_name: ms-user
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.user
     ports:
       - '8070:8070'
-    env_file: ./dev/dockerfiles/env/.env.user
+    env_file: ./dockerfiles/env/.env.user
 
 
   # EXAMPLES

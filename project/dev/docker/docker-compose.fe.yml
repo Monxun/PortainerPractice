@@ -6,31 +6,31 @@ services:
     image: fe-admin
     container_name: fe-admin
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.admin
     ports:
       - "8085:8085"
-    env_file: ./dev/dockerfiles/env/.env.admin
+    env_file: ./dockerfiles/env/.env.admin
 
   fe-dashboard:
     image: fe-dashboard
     container_name: fe-dashboard
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.dashboard
     ports:
       - "8086:8086"
-    env_file: ./dev/dockerfiles/env/.env.dashboard
+    env_file: ./dockerfiles/env/.env.dashboard
 
   fe-landing:
     image: fe-landing
     container_name: fe-landing
     build:
-      context: ./dev/dockerfiles
+      context: ./dockerfiles
       dockerfile: Dockerfile.landing
     ports:
       - "8087:8087"
-    env_file: ./dev/dockerfiles/env/.env.landing
+    env_file: ./dockerfiles/env/.env.landing
 
 
 

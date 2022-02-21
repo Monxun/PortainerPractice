@@ -1,8 +1,6 @@
 ARG JENKINS_VERSION=lts-slim
 FROM jenkins/jenkins:$JENKINS_VERSION
 
-LABEL maintainer="Saeid Bostandoust <ssbostan@linuxmail.org>"
-
 ##### Install jenkins plugins
 
 RUN jenkins-plugin-cli --plugins \

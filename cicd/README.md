@@ -1,9 +1,3 @@
-
-
-## How to deploy the stack:
-
-The stack is tested on Docker 2.10 and Docker-compose 1.26, should works on earlier versions.
-
 ### Get started:
 1. Build stack in root of cicd dir:
 
@@ -20,7 +14,7 @@ https://learn.smoothstack.com/component/splms/lesson/?id=585
 
 pipeline visual @ 27:52
 
-# PIPELINE
+# CI PIPELINE
 -- checkout
 -- test
 -- int
@@ -28,9 +22,12 @@ pipeline visual @ 27:52
 -- build
 -- store artifact
 
-# Create Jenkins Agent:
+# Create Jenkins Agent(example):
 
-    chmod +x agent.sh
+    docker run -d --name AGENT1 jenkinsci/jnlp-slave -url http://137.184.81.181:8090 0cc235eb36d3213d410fd35ac43edf77d9e10a81fdd676749bddbdf7a64a07b1 AGENT1
 
-    # agent.sh PLUS NAME FOLLOWED BY AGENT EXTERNAL PORT NUMBER
-    ./agent.sh JA1 33 
+# CD PIPELINE
+-- playbook
+-- terraform
+-- kubernetes
+-- test
