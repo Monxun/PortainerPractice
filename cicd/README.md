@@ -29,5 +29,8 @@ pipeline visual @ 27:52
 -- store artifact
 
 # Create Jenkins Agent:
-    # agent.sh FOLLOWED BY AGENT PORT NUMBER
-    ./agent.sh 33
+
+    chmod +x agent.sh
+
+    # agent.sh PLUS NAME FOLLOWED BY AGENT EXTERNAL PORT NUMBER
+    ./agent.sh JA1 33 
