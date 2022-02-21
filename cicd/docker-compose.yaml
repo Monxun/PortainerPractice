@@ -3,6 +3,7 @@ version: !!str 3
 services:
   jenkins:
     image: ssbostan/jenkins:lts-slim
+    container_name: JENKINS
     restart: unless-stopped
     environment:
       - "DOCKER_HOST=tcp://docker:2376"
@@ -23,6 +24,7 @@ services:
 
   registry:
     image: registry:2
+    container_name: REGISTRY
     restart: unless-stopped
     environment:
       - "REGISTRY_FIELDS_ENVIRONMENT=production"
@@ -44,6 +46,7 @@ services:
 
   docker:
     image: docker:dind
+    container_name: DOCKER
     restart: unless-stopped
     privileged: true
     command: ["--insecure-registry", "$JENKINS_DOCKER_REGISTRY_IP"]
@@ -64,6 +67,7 @@ services:
 
   gitea:
     image: gitea/gitea:1.14
+    container_name: GITEA
     restart: unless-stopped
     volumes:
       - "gitea_data:/data"
@@ -79,7 +83,8 @@ services:
       - "app.dws.created-by=ssbostan"
 
   sonarqube:
-    image: sonarqube:7.6-community 
+    image: sonarqube:7.6-community
+    container_name: SONARQUBE
     restart: unless-stopped
     volumes:
       - sonarqube_conf:/opt/sonarqube/conf
@@ -102,6 +107,7 @@ services:
 
   postgres:
     image: postgres
+    container_name: POSTGRES
     networks:
       - cicd
     environment:
@@ -118,6 +124,7 @@ services:
 
   mysql:
     image: mysql:5.7
+    container_name: MYSQL
     networks:
       - cicd
     ports:
@@ -136,6 +143,15 @@ services:
       - "app.dws.part-of=jenkins"
       - "app.dws.scope=devops-with-saeid"
       - "app.dws.created-by=ssbostan"
+
+  adminer:
+    image: adminer
+    container_name: ADMINER
+    restart: always
+    networks:
+      - cicd
+    ports:
+      - '8084:8080'
 
 networks:
   cicd:
