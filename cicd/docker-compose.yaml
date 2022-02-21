@@ -22,6 +22,13 @@ services:
       - "app.dws.scope=devops-with-saeid"
       - "app.dws.created-by=ssbostan"
 
+  ja1:
+    image: jenkins/ssh-agent:alpine
+    container_name: JENKINS
+    restart: unless-stopped
+    environment:
+      - "JENKINS_AGENT_SSH_PUBKEY=cat ~/.ssh/jenkins_agent_key.pub"
+
   registry:
     image: registry:2
     container_name: REGISTRY
