@@ -137,6 +137,10 @@ services:
       - "app.dws.scope=devops-with-saeid"
       - "app.dws.created-by=ssbostan"
 
+networks:
+  cicd:
+    driver: bridge
+
 volumes:
   jenkins_data:
   registry_data:
