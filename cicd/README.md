@@ -4,6 +4,9 @@
     docker-compose up
 
 2. Then configure Jenkins + Sonarqube:
+VIDEO:
+https://www.youtube.com/watch?v=KsTMy0920go&list=PLvBBnHmZuNQJeznYL2F-MpZYBUeLIXYEe&index=60
+ARTICLE:
 https://funnelgarden.com/sonarqube-jenkins-docker/
 
 3. Setup Github / Terraform:
