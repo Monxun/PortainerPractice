@@ -1,0 +1,11 @@
+node{
+    stage("CHECKOUT"){
+        git branch: 'main', url: 'https://github.com/night-walkers-smoothstack/core.git'
+    }
+    stage("BUILD"){
+        sh label: '', script:'mvn clean package'
+    }
+    stage("ARCHIVE"){
+        archiveArtifacts 'target/*.jar &'
+    }
+}

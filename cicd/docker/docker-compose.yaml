@@ -8,6 +8,7 @@ services:
     environment:
       - "DOCKER_HOST=tcp://docker:2376"
       - "DOCKER_TLS_VERIFY=1"
+      - "M2_HOME=/opt/apache-maven-3.8.4"
     volumes:
       - "jenkins_data:/var/jenkins_home"
       - "docker_certs_client:/var/jenkins_home/.docker"
@@ -34,7 +35,7 @@ services:
     networks:
       - cicd
     ports:
-      - "4444:443"
+      - "4444:5000"
     labels:
       - "app.dws.name=registry"
 

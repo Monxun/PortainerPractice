@@ -1,18 +1,22 @@
 pipeline {
     agent any
-       triggers {
-        pollSCM "* * * * *"
-       }
     stages {
-        stage('Build Application') { 
+        stage('Checkout / Git') {
             steps {
-                echo '=== Building Petclinic Application ==='
-                sh 'mvn -B -DskipTests clean package' 
+                git 'https://github.com/night-walkers-smoothstack/aline-user-microservice.git'
+                // credentialsId: 'GIT_HUB_CREDENTIALS'
+            }
+        }
+        stage("Build & SonarQube Analysis") {
+            steps {
+              withSonarQubeEnv('SONARQUBE') {
+                sh 'mvn -B -DskipTests clean package sonar:sonar'
+                }
             }
         }
         stage('Test Application') {
             steps {
-                echo '=== Testing Petclinic Application ==='
+                echo '=== Testing Maven Application ==='
                 sh 'mvn test'
             }
             post {
@@ -26,9 +30,9 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo '=== Building Petclinic Docker Image ==='
+                echo '=== Building Maven Docker Image ==='
                 script {
-                    app = docker.build("ibuchh/petclinic-spinnaker-jenkins")
+                    app = docker.build("monxun/maven-docker-jenkins")
                 }
             }
         }
@@ -37,22 +41,22 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo '=== Pushing Petclinic Docker Image ==='
+                echo '=== Pushing Docker Image ==='
                 script {
                     GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
                     SHORT_COMMIT = "${GIT_COMMIT_HASH[0..7]}"
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
+                    docker.withRegistry('http://REGISTRY:443') {
                         app.push("$SHORT_COMMIT")
                         app.push("latest")
                     }
                 }
             }
         }
-        stage('Remove local images') {
+        stage('Remove Local Images') {
             steps {
                 echo '=== Delete the local docker images ==='
-                sh("docker rmi -f ibuchh/petclinic-spinnaker-jenkins:latest || :")
-                sh("docker rmi -f ibuchh/petclinic-spinnaker-jenkins:$SHORT_COMMIT || :")
+                sh("docker rmi -f monxun/maven-docker-jenkins:latest || :")
+                sh("docker rmi -f monxun/maven-docker-jenkins:$SHORT_COMMIT || :")
             }
         }
     }

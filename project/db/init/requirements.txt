@@ -1,4 +1,0 @@
-Faker
-pymysql
-sqlacodegen
-sqlalchemy
