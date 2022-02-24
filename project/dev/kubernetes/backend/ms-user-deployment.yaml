@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.ms.yml convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-user
+  name: ms-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ms-user
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose --file docker-compose.ms.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: ms-user
+    spec:
+      containers:
+        - env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_PORT
+                  name: dockerfiles-env--env-user
+            - name: APP_USER_ACCESS_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_USER_ACCESS_KEY
+                  name: dockerfiles-env--env-user
+            - name: APP_USER_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_USER_SECRET_KEY
+                  name: dockerfiles-env--env-user
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: dockerfiles-env--env-user
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_NAME
+                  name: dockerfiles-env--env-user
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PASSWORD
+                  name: dockerfiles-env--env-user
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PORT
+                  name: dockerfiles-env--env-user
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_USERNAME
+                  name: dockerfiles-env--env-user
+            - name: ENCRYPT_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: ENCRYPT_SECRET_KEY
+                  name: dockerfiles-env--env-user
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_SECRET_KEY
+                  name: dockerfiles-env--env-user
+            - name: PORTAL_ADMIN
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTAL_ADMIN
+                  name: dockerfiles-env--env-user
+            - name: PORTAL_DASHBOARD
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTAL_DASHBOARD
+                  name: dockerfiles-env--env-user
+            - name: PORTAL_LANDING
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTAL_LANDING
+                  name: dockerfiles-env--env-user
+          image: ms-user
+          name: ms-user
+          ports:
+            - containerPort: 8070
+          resources: {}
+      restartPolicy: Always
+status: {}
