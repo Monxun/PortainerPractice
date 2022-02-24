@@ -1,3 +1,5 @@
+from logging import raiseExceptions
+import logging
 import re
 import string
 import secrets
@@ -46,7 +48,7 @@ for table_name in inspector.get_table_names():
     print(table_name)
 
 #################################################
-# DATA PRODUCER
+# INITIALIZE PRODUCER
 
 fake = Faker()
 
@@ -54,8 +56,23 @@ Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
 
+endpoints = {
+    'applicant': 'http://localhost:8071/applicants',
+    'application': 'http://localhost:8071/applications',
+    'user': 'http://localhost:8070/users/registration',
+    'bank': 'http://localhost:8083/banks',
+    'branch': 'http://localhost:8083/branches',
+    'transaction': 'http://localhost:8073/transactions'
+}
+
+#################################################
+# PRODUCER METHODS
+
 # APPLICANT
 def create_applicants(count=10):
+
+    url = endpoints['applicant']
+
     for _ in range(count):
         
         applicant = fake.profile()
@@ -86,12 +103,25 @@ def create_applicants(count=10):
             'zipcode': zipcode,
         }
 
+        # POST REQUEST
+        try:
+            response = requests.post(url, data=applicant_dict, timeout=1)
+            print(response)
+            logging.info(f'(SUCCESS| {response})')
+        except raiseExceptions:
+            print('Error')
+            logging.info(f'(ERROR| {response})')
+
+        # ADD TO DB
         # my_session.add(applicant)
         # my_session.commit()
 
 
 # BANK
 def create_banks(count=5):
+
+    url = endpoints['bank']
+
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -103,6 +133,15 @@ def create_banks(count=5):
             'state': state,
             'zipcode': zipcode
         }
+
+        # POST REQUEST
+        try:
+            response = requests.post(url, data=bank_dict, timeout=1)
+            print(response)
+            logging.info(f'(SUCCESS| {response})')
+        except raiseExceptions:
+            print('Error')
+            logging.info(f'(ERROR| {response})')
 
         # my_session.add(bank)
         # my_session.commit()
@@ -131,6 +170,7 @@ def create_merchants(count=5):
 # APPLICATION
 def create_applications():
 
+    url = endpoints['application']
     types = ['Business', 'Personal', 'Non-Profit', 'Trust']
 
     for applicant in my_session.query(Applicant).all():
@@ -141,14 +181,26 @@ def create_applications():
             'primary_applicant_id': applicant.id,
         }
 
+        # POST REQUEST
+        try:
+            response = requests.post(url, data=application_dict, timeout=1)
+            print(response)
+            logging.info(f'(SUCCESS| {response})')
+        except raiseExceptions:
+            print('Error')
+            logging.info(f'(ERROR| {response})')
+
         # my_session.add(application)
         # my_session.commit()
     
 
 # BRANCH
 def create_branches(count=5):
+
+    url = endpoints['branch']
     banks = my_session.query(Bank).all()
     print(banks)
+
     for _ in range(count):
 
         street, city, state, zipcode = random_address()
@@ -162,6 +214,15 @@ def create_branches(count=5):
             'zipcode': zipcode,
             'bank_id': 3
         }
+
+        # POST REQUEST
+        try:
+            response = requests.post(url, data=branch_dict, timeout=1)
+            print(response)
+            logging.info(f'(SUCCESS| {response})')
+        except raiseExceptions:
+            print('Error')
+            logging.info(f'(ERROR| {response})')
 
         # my_session.add(branch)
         # my_session.commit()
@@ -203,12 +264,16 @@ def create_accounts():
             'apy': round(random.uniform(0, 27), 2),
             'primary_account_holder_id': member.id
         }
+
         # my_session.add(account)
         # my_session.commit()
 
 
 # USER
 def create_users():
+
+    url = endpoints['user']
+
     for member in my_session.query(Member).all():
         print(member.membership_id)
         applicant = my_session.query(Applicant).get(member.applicant_id)
@@ -224,6 +289,16 @@ def create_users():
             'phone': applicant.phone,
             'member_id': member.id
         }
+
+        # POST REQUEST
+        try:
+            response = requests.post(url, data=user_dict, timeout=1)
+            print(response)
+            logging.info(f'(SUCCESS| {response})')
+        except raiseExceptions:
+            print('Error')
+            logging.info(f'(ERROR| {response})')
+        
         # my_session.add(user)
         # my_session.commit()
         
@@ -244,6 +319,7 @@ def create_one_time_passcodes():
 # TRANSACTIONS
 def create_transactions(count=10):
 
+    url = endpoints['transaction']
     account_ids = [account.id for account in my_session.query(Account).all()]
     print(account_ids)
     merchant_codes = [merchant.code for merchant in my_session.query(Merchant).all()]
@@ -279,6 +355,16 @@ def create_transactions(count=10):
             'account_id': account.id,
             'merchant_code': random.choice(merchant_codes)
         }
+
+        # POST REQUEST
+        try:
+            response = requests.post(url, data=transaction_dict, timeout=1)
+            print(response)
+            logging.info(f'(SUCCESS| {response})')
+        except raiseExceptions:
+            print('Error')
+            logging.info(f'(ERROR| {response})')
+
         # my_session.add(transaction)
         # my_session.commit()
 
@@ -299,14 +385,14 @@ def create_user_registration_tokens():
 if __name__ == '__main__':
     create_applicants()
     create_banks()
-    create_merchants()
-    create_applications()
+    # create_merchants()
+    # create_applications()
     create_branches()
-    create_members()
-    create_accounts()
+    # create_members()
+    # create_accounts()
     create_users()
-    create_one_time_passcodes()
+    # create_one_time_passcodes()
     create_transactions()
-    create_user_registration_tokens()
+    # create_user_registration_tokens()
 
     my_session.close()
