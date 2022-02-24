@@ -17,9 +17,12 @@ services:
   # ADMIN
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - '8084:8080'
+
+
 
 
   
