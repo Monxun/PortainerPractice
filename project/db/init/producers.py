@@ -29,6 +29,7 @@ from models import (
     UserRegistrationToken
 )
 
+from config import JWT_KEY
 from utils import random_bank_name, random_address, random_middle_name
 
 from faker import Faker
@@ -103,14 +104,17 @@ def create_applicants(count=10):
             'zipcode': zipcode,
         }
 
+        response = requests.post(url, headers={'Authorization': f'Bearer {JWT_KEY}'}, data=applicant_dict, timeout=1)
+        print(response)
+ 
         # POST REQUEST
-        try:
-            response = requests.post(url, data=applicant_dict, timeout=1)
-            print(response)
-            logging.info(f'(SUCCESS| {response})')
-        except raiseExceptions:
-            print('Error')
-            logging.info(f'(ERROR| {response})')
+        # try:
+        #     response = requests.post(url, data=applicant_dict, timeout=1)
+        #     print(response)
+        #     logging.info(f'(SUCCESS| {response})')
+        # except raiseExceptions:
+        #     print('Error')
+        #     logging.info(f'(ERROR| {response})')
 
         # ADD TO DB
         # my_session.add(applicant)
@@ -384,15 +388,15 @@ def create_user_registration_tokens():
 
 if __name__ == '__main__':
     create_applicants()
-    create_banks()
-    # create_merchants()
-    # create_applications()
-    create_branches()
-    # create_members()
-    # create_accounts()
-    create_users()
-    # create_one_time_passcodes()
-    create_transactions()
-    # create_user_registration_tokens()
+    # create_banks()
+    # # create_merchants()
+    # # create_applications()
+    # create_branches()
+    # # create_members()
+    # # create_accounts()
+    # create_users()
+    # # create_one_time_passcodes()
+    # create_transactions()
+    # # create_user_registration_tokens()
 
     my_session.close()
