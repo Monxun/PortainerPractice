@@ -6,8 +6,8 @@ spring:
     name: "transaction"
   jpa:
     hibernate:
-      ddl-auto: create
-    show-sql: false
+      ddl-auto: create-drop
+    # show-sql: false
   datasource:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}

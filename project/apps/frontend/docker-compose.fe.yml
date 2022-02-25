@@ -8,6 +8,8 @@ services:
     build:
       context: ./FE-admin
       dockerfile: Dockerfile.admin
+    networks:
+      - aline
     ports:
       - "8085:8085"
     env_file: ./FE-admin/.env
@@ -18,6 +20,8 @@ services:
     build:
       context: ./FE-dashboard
       dockerfile: Dockerfile.dashboard
+    networks:
+      - aline
     ports:
       - "8086:8086"
     env_file: ./FE-dashboard/.env
@@ -28,10 +32,15 @@ services:
     build:
       context: ./FE-landing
       dockerfile: Dockerfile.landing
+    networks:
+      - aline
     ports:
       - "8087:8087"
     env_file: ./FE-landing/.env.dev
 
+networks:
+  aline:
+    driver: bridge
 
 
 

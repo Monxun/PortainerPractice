@@ -3,4 +3,4 @@
 cd ..
 cd ./backend
 
-docker-compose -f docker-compose.ms.yml down -d --rmi 'all'
+docker-compose -f docker-compose.ms.yml down --rmi 'all'

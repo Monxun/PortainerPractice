@@ -3,4 +3,4 @@
 cd ..
 cd ./db
 
-docker-compose -f docker-compose.db.yml down -d --rmi 'all'
+docker-compose -f docker-compose.db.yml kill

@@ -11,16 +11,24 @@ services:
     env_file: ./DB-aline/.env
     volumes:
       - ./DB-aline/init:/docker-entrypoint-initdb.d
+    networks:
+      - aline
     ports:
       - '3344:3306'
 
   # ADMIN
   adminer:
     image: adminer
-    container_name: adminer
+    container_name: db-adminer
     restart: always
+    networks:
+      - aline
     ports:
       - '8084:8080'
+
+networks:
+  aline:
+    driver: bridge
 
 
 

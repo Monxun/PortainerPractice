@@ -1,4 +1,0 @@
-sqlacodegen
-Faker
-mysql-connector-python
-sqlalchemy

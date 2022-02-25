@@ -1,6 +1,11 @@
 #!/bin/sh
 
-cd scripts
-source ./destroy_db.sh
-source ./destroy_backend.sh
-# source ./deploy_frontend.sh
+docker rm --force db-aline
+docker rm --force db-adminer
+docker rm --force ms-bank
+docker rm --force ms-gateway
+docker rm --force ms-underwriter
+docker rm --force ms-user
+docker rm --force ms-transaction
+
+yes | docker image prune -a

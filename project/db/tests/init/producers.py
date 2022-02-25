@@ -57,6 +57,11 @@ Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
 
+headers = {
+    'Content-type':'application/json',
+    'Accept':'application/json'
+}
+
 endpoints = {
     'applicant': 'http://localhost:8071/applicants',
     'application': 'http://localhost:8071/applications',
@@ -81,7 +86,7 @@ def create_applicants(count=10):
         street, city, state, zipcode = random_address()
         middle_name = random_middle_name(applicant)
 
-        applicant_dict = {
+        applicant_dict = [{
             'address': street,
             'city': city,
             'created_at': datetime.now(),
@@ -102,9 +107,9 @@ def create_applicants(count=10):
             'social_security': applicant['ssn'],
             'state': state,
             'zipcode': zipcode,
-        }
+        }]
 
-        response = requests.post(url, headers={'Authorization': f'Bearer {JWT_KEY}'}, data=applicant_dict, timeout=1)
+        response = requests.post(url, headers=headers, data=applicant_dict, timeout=1)
         print(response)
  
         # POST REQUEST
