@@ -1,0 +1,6 @@
+FROM maven:latest
+ADD ./target/transaction-microservice-0.1.0.jar transaction-microservice-0.1.0.jar
+EXPOSE 8073
+ENTRYPOINT ["java", "-jar", "./transaction-microservice/target/transaction-microservice-0.1.0.jar"]
+
+# add app port variable from mavenfor expose & update jar location

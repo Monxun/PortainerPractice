@@ -1,0 +1,76 @@
+version: '3'
+services:
+
+  # MICROSERVICES
+  ms-gateway:
+    image: ms-gateway
+    container_name: ms-gateway
+    restart: always
+    build:
+      context: ./dockerfiles/backend
+      dockerfile: Dockerfile.gateway
+    # networks:
+    #   - aline
+    ports:
+      - "8080:8080"
+    env_file: ./dockerfiles/backend/env/.env.gateway
+
+  ms-bank:
+    image: ms-bank
+    container_name: ms-bank
+    restart: always
+    build:
+      context: ./dockerfiles/backend
+      dockerfile: Dockerfile.bank
+    # networks:
+    #   - aline
+    ports:
+      - '8083:8083'
+    env_file: ./dockerfiles/backend/env/.env.bank
+
+  ms-transaction:
+    image: ms-transaction
+    container_name: ms-transaction
+    restart: always
+    build:
+      context: ./dockerfiles/backend
+      dockerfile: Dockerfile.transaction
+    # networks:
+    #   - aline
+    ports:
+      - '8073:8073'
+    env_file: ./dockerfiles/backend/env/.env.transaction
+
+  ms-underwriter:
+    image: ms-underwriter
+    container_name: ms-underwriter
+    restart: always
+    build:
+      context: ./dockerfiles/backend
+      dockerfile: Dockerfile.underwriter
+    # networks:
+    #   - aline
+    ports:
+      - '8071:8071'
+    env_file: ./dockerfiles/backend/env/.env.underwriter
+
+  ms-user:
+    image: ms-user
+    container_name: ms-user
+    restart: always
+    build:
+      context: ./dockerfiles/backend
+      dockerfile: Dockerfile.user
+    # networks:
+    #   - aline
+    ports:
+      - '8070:8070'
+    env_file: ./dockerfiles/backend/env/.env.user
+
+# networks:
+#   aline:
+#     driver: bridge
+
+
+
+  
