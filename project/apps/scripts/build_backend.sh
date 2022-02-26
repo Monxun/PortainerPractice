@@ -10,4 +10,5 @@ for d in */ ; do
 done
 cd ..
 cd ..
+rm ./dockerfiles/backend/target/*
 find . -name '*.jar' -exec mv {} ./dockerfiles/backend/target \;
