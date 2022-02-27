@@ -9,8 +9,8 @@ services:
     build:
       context: ./dockerfiles/backend
       dockerfile: Dockerfile.gateway
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
       - "8080:8080"
     env_file: ./dockerfiles/backend/env/.env.gateway
@@ -22,8 +22,8 @@ services:
     build:
       context: ./dockerfiles/backend
       dockerfile: Dockerfile.bank
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
       - '8083:8083'
     env_file: ./dockerfiles/backend/env/.env.bank
@@ -35,8 +35,8 @@ services:
     build:
       context: ./dockerfiles/backend
       dockerfile: Dockerfile.transaction
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
       - '8073:8073'
     env_file: ./dockerfiles/backend/env/.env.transaction
@@ -48,8 +48,8 @@ services:
     build:
       context: ./dockerfiles/backend
       dockerfile: Dockerfile.underwriter
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
       - '8071:8071'
     env_file: ./dockerfiles/backend/env/.env.underwriter
@@ -61,15 +61,16 @@ services:
     build:
       context: ./dockerfiles/backend
       dockerfile: Dockerfile.user
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
       - '8070:8070'
     env_file: ./dockerfiles/backend/env/.env.user
 
-# networks:
-#   aline:
-#     driver: bridge
+networks:
+  aline:
+    driver: bridge
+    external: true
 
 
 

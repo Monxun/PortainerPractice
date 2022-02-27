@@ -3,7 +3,6 @@ services:
 
 # DATABASES
   db-aline:
-    user: root
     image: mysql/mysql-server:latest
     container_name: db-aline
     restart: always
@@ -11,24 +10,25 @@ services:
     env_file: ./dockerfiles/db/env/.env.db
     volumes:
       - ./services/db/DB-aline/init:/docker-entrypoint-initdb.d
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
-      - '3344:3306'
+      - '3306:3306'
 
   # ADMIN
   adminer:
     image: adminer
     container_name: db-adminer
     restart: always
-    # networks:
-    #   - aline
+    networks:
+      - aline
     ports:
       - '8084:8080'
 
-# networks:
-#   aline:
-#     driver: bridge
+networks:
+  aline:
+    driver: bridge
+    external: true
 
 
 
