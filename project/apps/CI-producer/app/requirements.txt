@@ -1,0 +1,6 @@
+Faker
+pymysql
+sqlacodegen
+sqlalchemy
+requests
+flask_login

@@ -1,6 +1,6 @@
 FROM openjdk:latest
 ADD ./bank-microservice/target/bank-microservice-0.1.0.jar bank-microservice-0.1.0.jar
-EXPOSE 8080
+EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "bank-microservice-0.1.0.jar"]
 
 # add app port variable from mavenfor expose & update jar location

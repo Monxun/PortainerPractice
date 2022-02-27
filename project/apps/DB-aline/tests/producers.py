@@ -1,7 +1,9 @@
+import os
 import re
 import string
 import secrets
 import random
+import requests
 from random import randint
 from datetime import datetime
 
@@ -52,6 +54,37 @@ fake = Faker()
 Session = session.sessionmaker()
 Session.configure(bind=engine)
 my_session = Session()
+
+bank_url = os.environ['BANK_URL']
+transaction_url = os.environ['TRANSACTION_URL']
+underwriter_url = os.environ['UNDERWRITER_URL']
+user_url = os.environ['USER_URL']
+
+#################################################
+# ENDPOINTS
+
+applications_url = f"{underwriter_url}/applications"
+registrations_url = f"{user_url}/users/registration"
+login_url = f"{user_url}/login"
+
+# Requires bearer token
+bank_url = f"{bank_url}/banks"
+branch_url = f"{bank_url}/branches"
+transaction_url = f"{transaction_url}/transactions"
+
+headers = {
+    'Content-type':'application/json',
+    'Accept':'application/json'
+}
+
+authenticated_header = {
+    'Content-type':'application/json',
+    'Accept':'application/json',
+    'Authorization': ''
+}
+
+#################################################
+# PRODUCERS
 
 # APPLICANT
 def create_applicants(count=10):

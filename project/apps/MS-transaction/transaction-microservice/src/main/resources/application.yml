@@ -6,7 +6,7 @@ spring:
     name: "transaction"
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: false
   datasource:
     username: ${DB_USERNAME}
