@@ -4,7 +4,7 @@ import random
 
 fake = Faker()
 
-producer_logger = helper.create_logger("alinedb_dataproducer_Applicants", "./logs/data_producer.logs", "w")
+producer_logger = helper.create_logger("alinedb_dataproducer_Applicants", "data_producer.logs", "w")
 
 def create_applicant():
     gender = random.choice(["MALE", "FEMALE"])

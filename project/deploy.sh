@@ -6,8 +6,8 @@ cd apps/scripts
 source ./deploy_db.sh
 cd scripts
 source ./deploy_backend.sh
-cd scripts
-source ./deploy_ci.sh
+# cd scripts
+# source ./deploy_ci.sh
 
 # BACKEND DEPLOY
 #sleep 1m

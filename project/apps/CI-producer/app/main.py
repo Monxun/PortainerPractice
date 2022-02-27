@@ -10,7 +10,7 @@ import os
 
 fake = Faker()
 
-main_logger = helper.create_logger("alinedb_dataproducer_main", "logs/main.log", 'w')
+main_logger = helper.create_logger("alinedb_dataproducer_main", "main.log", 'w')
 
 
 #####################
