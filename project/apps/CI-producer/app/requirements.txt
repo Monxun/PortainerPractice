@@ -4,3 +4,4 @@ sqlacodegen
 sqlalchemy
 requests
 flask_login
+dotenv

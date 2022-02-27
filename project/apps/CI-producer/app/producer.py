@@ -31,8 +31,7 @@ def create_applicant():
 
 def create_application(num=1):
     return {
-            "applicationType": random.choice(["CHECKING", "SAVINGS", 
-                            "CHECKING_AND_SAVINGS", "CREDIT_CARD", "LOAN"]),
+            "applicationType": random.choice(["CHECKING", "SAVINGS", "CHECKING_AND_SAVINGS", "CREDIT_CARD", "LOAN"]),
             "noApplicants": False,
             "applicants": [create_applicant() for _ in range(num)]
             }

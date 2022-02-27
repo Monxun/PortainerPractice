@@ -1,5 +1,6 @@
 from urllib import response
 from flask_login import user_logged_in
+from dotenv import load_dotenv
 import requests
 import helper
 import random
@@ -12,6 +13,8 @@ fake = Faker()
 
 main_logger = helper.create_logger("alinedb_dataproducer_main", "main.log", 'w')
 
+load_dotenv()
+
 
 #####################
 ### Setup Headers ###
@@ -21,16 +24,18 @@ headers = {
     'Accept':'application/json'
 }
 
+jwt = os.getenv('JWT_SECRET_KEY')
+
 authenticated_header = {
     'Content-type':'application/json',
     'Accept':'application/json',
     'Authorization': ''
 }
 
-bank_url = os.environ['BANK_URL']
-transaction_url = os.environ['TRANSACTION_URL']
-underwriter_url = os.environ['UNDERWRITER_URL']
-user_url = os.environ['USER_URL']
+bank_url = 'http://localhost:8083'
+transaction_url = 'http://localhost:8073'
+underwriter_url = 'http://localhost:8071'
+user_url = 'http://localhost:8070'
 
 #####################
 ##### ENDPOINTS #####
@@ -114,11 +119,13 @@ login_response = user_login(user)
 authenticated_header['Authorization'] = login_response['Authorization']
 bank = producer.create_bank()
 bank_response = bank_post(bank)
+print(bank_response)
 branch = producer.create_branch(bank_response["id"])
 branch = branch_post(branch)
 
 application = producer.create_application()
 application_response = application_post(application)
+print(application_response)
 member = producer.create_member(application_response)
 user_post(member)
 
