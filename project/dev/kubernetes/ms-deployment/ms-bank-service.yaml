@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.ms.yml convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-bank
+  name: ms-bank
+spec:
+  ports:
+    - name: "8083"
+      port: 8083
+      targetPort: 8083
+  selector:
+    io.kompose.service: ms-bank
+status:
+  loadBalancer: {}

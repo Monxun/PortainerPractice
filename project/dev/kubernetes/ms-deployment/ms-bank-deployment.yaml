@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.ms.yml convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-bank
+  name: ms-bank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ms-bank
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose --file docker-compose.ms.yml convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: ms-bank
+    spec:
+      containers:
+        - env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_PORT
+                  name: dockerfiles-env--env-bank
+            - name: APP_USER_ACCESS_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_USER_ACCESS_KEY
+                  name: dockerfiles-env--env-bank
+            - name: APP_USER_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_USER_SECRET_KEY
+                  name: dockerfiles-env--env-bank
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: dockerfiles-env--env-bank
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_NAME
+                  name: dockerfiles-env--env-bank
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PASSWORD
+                  name: dockerfiles-env--env-bank
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PORT
+                  name: dockerfiles-env--env-bank
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_USERNAME
+                  name: dockerfiles-env--env-bank
+            - name: ENCRYPT_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: ENCRYPT_SECRET_KEY
+                  name: dockerfiles-env--env-bank
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_SECRET_KEY
+                  name: dockerfiles-env--env-bank
+            - name: PORTAL_ADMIN
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTAL_ADMIN
+                  name: dockerfiles-env--env-bank
+            - name: PORTAL_DASHBOARD
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTAL_DASHBOARD
+                  name: dockerfiles-env--env-bank
+            - name: PORTAL_LANDING
+              valueFrom:
+                configMapKeyRef:
+                  key: PORTAL_LANDING
+                  name: dockerfiles-env--env-bank
+          image: ms-bank
+          name: ms-bank
+          ports:
+            - containerPort: 8083
+          resources: {}
+      restartPolicy: Always
+status: {}

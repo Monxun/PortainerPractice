@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  APP_PORT: "8080"
+  APP_SERVICE_HOST: localhost
+  PORTAL_ADMIN: FE-admin
+  PORTAL_DASHBOARD: FE-dashboard
+  PORTAL_LANDING: FE-landing
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ms-gateway-dockerfiles-env--env-gateway
+  name: dockerfiles-env--env-gateway
