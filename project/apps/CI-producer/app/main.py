@@ -1,19 +1,24 @@
 from urllib import response
+from cryptography.hazmat.primitives import serialization
 from flask_login import user_logged_in
 from dotenv import load_dotenv
+import os
 import requests
-import helper
+import jwt
+
+
+from helpers import helpers
 import random
-import producer
+import Producers
+
 from faker import Faker
 import json
-import os
+
+load_dotenv()
 
 fake = Faker()
 
-main_logger = helper.create_logger("alinedb_dataproducer_main", "main.log", 'w')
-
-load_dotenv()
+main_logger = helpers.create_logger("alinedb_dataproducer_main", "logs/main.log", 'w')
 
 
 #####################
@@ -24,31 +29,25 @@ headers = {
     'Accept':'application/json'
 }
 
-jwt = os.getenv('JWT_SECRET_KEY')
+private_key = open('/Users/monxu/.ssh/id_rsa', 'r').read()
+key = serialization.load_ssh_private_key(private_key.encode(), password=b'aline')
 
 authenticated_header = {
     'Content-type':'application/json',
     'Accept':'application/json',
-    'Authorization': ''
+    'Authorization': 'Bearer '
 }
 
-bank_url = 'http://localhost:8083'
-transaction_url = 'http://localhost:8073'
-underwriter_url = 'http://localhost:8071'
-user_url = 'http://localhost:8070'
+jwt_secret_key = os.getenv('JWT_SECRET_KEY')
 
-#####################
-##### ENDPOINTS #####
-#####################
-
-applications_url = f"{underwriter_url}/applications"
-registration_url = f"{user_url}/users/registration"
-login_url = f"{user_url}/login"
+applications_url = "http://localhost:8071/applications"
+registration_url = "http://localhost:8070/users/registration"
+login_url = "http://localhost:8070/login"
 
 # Requires bearer token
-bank_url = f"{bank_url}/banks"
-branch_url = f"{bank_url}/branches"
-transaction_url = f"{transaction_url}/transactions"
+bank_url = "http://localhost:8083/banks"
+branch_url = "http://localhost:8083/branches"
+transaction_url = "http://localhost:8073/transactions"
 
 ########################
 ###  POST  Functions ###
@@ -58,6 +57,9 @@ transaction_url = f"{transaction_url}/transactions"
 def application_post(application):
     main_logger.info('ATTEMPTING TO CREATE APPLICATION FROM...')
     main_logger.info(json.dumps(application))
+
+    token = jwt.encode(payload=application, key=jwt_secret_key)
+    authenticated_header['Authorization'] = f'Bearer {token}'
     response = requests.post(applications_url, json=application, headers=headers)
 
     main_logger.info(f'response status code: {response.status_code}')
@@ -113,23 +115,21 @@ def transaction_post(transaction):
 
 ### PRODUCERS ###
 
-user = producer.create_admin()
+user = Producers.create_admin()
 user_post(user)
 login_response = user_login(user)
 authenticated_header['Authorization'] = login_response['Authorization']
-bank = producer.create_bank()
+bank = Producers.create_bank()
 bank_response = bank_post(bank)
-print(bank_response)
-branch = producer.create_branch(bank_response["id"])
+branch = Producers.create_branch(bank_response["id"])
 branch = branch_post(branch)
 
-application = producer.create_application()
+application = Producers.create_application()
 application_response = application_post(application)
-print(application_response)
-member = producer.create_member(application_response)
+member = Producers.create_member(application_response)
 user_post(member)
 
 if "createdAccounts" in application_response:
     account_number = application_response["createdAccounts"][0]["accountNumber"]
-    transaction = producer.create_transaction(account_number)
+    transaction = Producers.create_transaction(account_number)
     transaction_response = transaction_post(transaction)

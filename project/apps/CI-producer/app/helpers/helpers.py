@@ -6,21 +6,16 @@ import logging
 fake = Faker()
 
 bank_names = [
-        'Ward Holdings',
-        'Trust Bank System',
-        'Bright Horizon Bank Group',
-        'Diligence Financial Services',
-        'New Horizon Credit Union',
-        'Oculus Bank Group',
-        'One Capital Banks Inc.',
-        'Apex Credit Union',
-        'Diamond Financial Inc.',
-        'Fidelity Bank',
-        'Bolt Holding Company',
-        'Prominence Financial Group',
-        'Concorde Financial Group',
-        'Gold Credit Financial Services',
-        'Principal Trust',
+    "Essence Credit Union",
+    "Marshall Banks Inc.",
+    "Esteem Financial Inc.",
+    "Paradise Corporation",
+    "United Financial Holdings",
+    "Jones Holdings",
+    "Azure Holding Company",
+    "Golden Gates Trust Corp.",
+    "Velvet Trust Corp.",
+    "Reliance Holdings Inc."
 ]
 
 def generate_id(size=7, chars=string.ascii_uppercase + string.digits):
@@ -52,6 +47,34 @@ def generate_name(gender):
 
 def generate_username(size=12):
     return ''.join(random.choice(string.ascii_letters) for _ in range(size))
+
+''' Don't think I'll actually need this anymore but commenting it out until I'm certain.
+def split_address(address):
+    address_to_split = address.replace(',', '\n').split('\n')
+    return_address = {}
+    if len(address_to_split) == 2:
+        # Looks like a military address
+        # For data producing purposes I'll use the first index for the address line
+        # I'll split the second line to get the PO (APO/FPO), US military 'state' code and zip
+        po_state_zip = address_to_split[1].split(' ')
+
+        return_address['street'] = address_to_split[0]
+        return_address['city'] = po_state_zip[0]
+        return_address['state'] = po_state_zip[1]
+        return_address['zip'] = po_state_zip[2]
+
+    elif len(address_to_split) == 3:
+        # Looks like a regular address
+        # Pull the street and suite/apt info from the first part of the address
+        state_zip = address_to_split[2].strip().split(' ')
+
+        return_address['street'] = address_to_split[0]
+        return_address['city'] = address_to_split[1]
+        return_address['state'] = state_zip[0]
+        return_address['zip'] = state_zip[1]
+
+    return return_address
+'''
 
 log_format = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
 

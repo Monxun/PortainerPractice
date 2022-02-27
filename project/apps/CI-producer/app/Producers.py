@@ -1,14 +1,17 @@
+##########################################################
+### Data producer for the Aline Financial API          ###
+##########################################################
 from faker import Faker
-import helper
+from helpers import helpers
 import random
 
 fake = Faker()
 
-producer_logger = helper.create_logger("alinedb_dataproducer_Applicants", "data_producer.logs", "w")
+producer_logger = helpers.create_logger("alinedb_dataproducer_Applicants", "./logs/data_producer.logs", "w")
 
 def create_applicant():
     gender = random.choice(["MALE", "FEMALE"])
-    name = helper.generate_name(gender)
+    name = helpers.generate_name(gender)
 
     return {"firstName": name[0],
             "middleName": name[1],
@@ -16,9 +19,9 @@ def create_applicant():
             "dateOfBirth": fake.date_of_birth(minimum_age=18).strftime(f'%Y-%m-%d'),
             "gender": gender,
             "email": fake.email(),
-            "phone": helper.generate_phone(),
+            "phone": helpers.generate_phone(),
             "socialSecurity": fake.ssn(),
-            "driversLicense": helper.generate_id(),
+            "driversLicense": helpers.generate_id(),
             "income": round(random.randint(1500000,12000000)),
             "address": fake.street_address(),
             "city": fake.city(),
@@ -31,28 +34,29 @@ def create_applicant():
 
 def create_application(num=1):
     return {
-            "applicationType": random.choice(["CHECKING", "SAVINGS", "CHECKING_AND_SAVINGS", "CREDIT_CARD", "LOAN"]),
+            "applicationType": random.choice(["CHECKING", "SAVINGS", 
+                            "CHECKING_AND_SAVINGS", "CREDIT_CARD", "LOAN"]),
             "noApplicants": False,
             "applicants": [create_applicant() for _ in range(num)]
             }
 
 def create_admin():
-    name = helper.generate_name(helper.gender())
+    name = helpers.generate_name(helpers.gender())
 
     return {
         "role": "admin",
-        "username": helper.generate_username(),
+        "username": helpers.generate_username(),
         "password": f'Mypassa@dffsfa2',
         "firstName": name[0],
         "lastName": name[1],
         "email": fake.email(),
-        "phone": helper.generate_phone()
+        "phone": helpers.generate_phone()
     }
 
 def create_member(application_response):
     return {
         "role": "member",
-        "username": helper.generate_username(),
+        "username": helpers.generate_username(),
         "password": 'Mypassa@dffsfa2',
         "firstName": application_response['applicants'][0]['firstName'],
         "lastName": application_response['applicants'][0]['lastName'],
@@ -64,7 +68,7 @@ def create_member(application_response):
 
 def create_bank():
     return {
-        "routingNumber": helper.generate_routing(),
+        "routingNumber": helpers.generate_routing(),
         "address": fake.street_address(),
         "city": fake.city(),
         "state": fake.state_abbr(),
@@ -74,9 +78,9 @@ def create_bank():
 def create_branch(bankId):
     return {
         "bankID": bankId,
-        "name": random.choice(helper.bank_names),
+        "name": random.choice(helpers.bank_names),
         "address": fake.street_address(),
-        "phone": helper.generate_phone(),
+        "phone": helpers.generate_phone(),
         "city": fake.city(),
         "state": fake.state_abbr(),
         "zipcode": fake.zipcode()
@@ -90,8 +94,7 @@ def create_transaction(account_number):
             "TRANSFER_OUT",
             "PURCHASE",
             "PAYMENT",
-            "REFUND",
-            "VOID"])
+            "REFUND"])
     method = random.choice([
             "ACH",
             "ATM",

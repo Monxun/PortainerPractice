@@ -1,0 +1,51 @@
+Creation flow
+-------------
+Application-> automatically creates new rows in : member, account, application
+Will send JSON in this format back to the requester (your app)
+
+{"id":2,"type":"CHECKING",
+"applicants":
+	[{"id":2,"firstName":"Alexandra","middleName":"Somename",
+	"lastName":"Rocha","dateOfBirth":"1918-11-17",
+	"gender":"MALE","email":"ethankeller@example.net",
+	"phone":"133-853-1888","socialSecurity":"743-06-0119",
+	"driversLicense":"KR6AM16","income":11957491,
+	"address":"555 Kelley Keys","city":"West Rebecca",
+	"state":"AZ","zipcode":"17838","mailingAddress":"14528 Gibson Skyway Apt. 474",
+	"mailingCity":"South Jacquelinetown","mailingState":"KY","mailingZipcode":"85273",
+	"lastModifiedAt":"2022-02-23T11:00:30.6184476","createdAt":"2022-02-23T11:00:30.6184476"}],
+"status":"APPROVED",
+"reasons":["Application was approved"],
+
+"accountsCreated":true,
+"createdAccounts":[{"accountNumber":"0011017761","accountType":"CHECKING"}],
+"membersCreated":true,
+"createdMembers":[{"membershipId":"48561560","name":"Alexandra Rocha"}]
+}
+
+
+
+Create user based off the information used to setup the applicant
+{
+    "role":"admin" OR "member",
+    "username": "testing" (has a minimum length of like 5 or 6, i forget but the minimum of 'testing' will work.),
+    "password": "Mypassa@dffsfa2" (Requires a fairly long password with a capital letter, integer and special character),
+    "firstName": applicant.first_name,
+    "lastName": applicant.last_name,
+    "email": applicant.email,
+    "phone": applicant.phone,
+    "lastFourOfSSN": applicant.socialSecurity < slice the last 4 from it.
+}
+
+APPLICATIONS
+
+Phone number rules
+Must be in the format '###-###-####'
+
+Age
+Must verify age is at least 18
+
+Income
+The check includes two zeroes as the cents amount
+Be sure to add two extra zeroes to all incomes
+15,000.00 = 1500000

@@ -5,3 +5,4 @@ sqlalchemy
 requests
 flask_login
 dotenv
+pyjwt[crypto]
