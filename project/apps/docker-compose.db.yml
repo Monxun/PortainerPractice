@@ -12,15 +12,29 @@ services:
     volumes:
       - ./DB-aline/init:/docker-entrypoint-initdb.d
     ports:
-      - '3344:3306'
+      - '3306:3306'
+    networks:
+      - aline
 
   # ADMIN
   adminer:
-    image: adminer
+    image: adminer:latest
     container_name: db-adminer
     restart: always
+    environment:
+        ADMINER_DEFAULT_SERVER: db-aline
+        ADMINER_DESIGN: dracula
     ports:
       - '8084:8080'
+    networks:
+      - aline
+
+networks:
+  aline:
+    external:
+      name: aline
+
+
 
 
   

@@ -5,6 +5,8 @@ import logging
 
 fake = Faker()
 
+log_format = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+
 bank_names = [
     "Essence Credit Union",
     "Marshall Banks Inc.",
@@ -22,7 +24,7 @@ def generate_id(size=7, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 def generate_routing(size=9):
-    return int(''.join(random.choice(string.digits) for _ in range(size)))
+    return int(''.join(random.choices(string.digits, k=size)))
 
 def generate_password(minSize=14):
     return ''.join(random.choice(string.ascii_letters + string.digits + string.punctuation) for _ in range(minSize))
@@ -47,36 +49,6 @@ def generate_name(gender):
 
 def generate_username(size=12):
     return ''.join(random.choice(string.ascii_letters) for _ in range(size))
-
-''' Don't think I'll actually need this anymore but commenting it out until I'm certain.
-def split_address(address):
-    address_to_split = address.replace(',', '\n').split('\n')
-    return_address = {}
-    if len(address_to_split) == 2:
-        # Looks like a military address
-        # For data producing purposes I'll use the first index for the address line
-        # I'll split the second line to get the PO (APO/FPO), US military 'state' code and zip
-        po_state_zip = address_to_split[1].split(' ')
-
-        return_address['street'] = address_to_split[0]
-        return_address['city'] = po_state_zip[0]
-        return_address['state'] = po_state_zip[1]
-        return_address['zip'] = po_state_zip[2]
-
-    elif len(address_to_split) == 3:
-        # Looks like a regular address
-        # Pull the street and suite/apt info from the first part of the address
-        state_zip = address_to_split[2].strip().split(' ')
-
-        return_address['street'] = address_to_split[0]
-        return_address['city'] = address_to_split[1]
-        return_address['state'] = state_zip[0]
-        return_address['zip'] = state_zip[1]
-
-    return return_address
-'''
-
-log_format = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
 
 def create_logger(name, filename, mode='a', level=logging.INFO):
     '''Helper function to setup seperate loggers.

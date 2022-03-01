@@ -2,11 +2,14 @@
 
 cd apps/scripts
 
+docker network create -d bridge aline
+
 # DB DEPLOY
 source ./deploy_db.sh
 cd scripts
 source ./deploy_backend.sh
-# cd scripts
+cd scripts
+# sleep 1m
 # source ./deploy_ci.sh
 
 # BACKEND DEPLOY

@@ -7,10 +7,8 @@ import random
 
 fake = Faker()
 
-producer_logger = helpers.create_logger("alinedb_dataproducer_Applicants", "./logs/data_producer.logs", "w")
-
 def create_applicant():
-    gender = random.choice(["MALE", "FEMALE"])
+    gender = helpers.gender()
     name = helpers.generate_name(gender)
 
     return {"firstName": name[0],
@@ -67,8 +65,12 @@ def create_member(application_response):
     }
 
 def create_bank():
+    routingNumber = 0
+    while len(str(routingNumber)) < 9:
+        routingNumber = helpers.generate_routing()
+
     return {
-        "routingNumber": helpers.generate_routing(),
+        "routingNumber": routingNumber,
         "address": fake.street_address(),
         "city": fake.city(),
         "state": fake.state_abbr(),
@@ -86,7 +88,7 @@ def create_branch(bankId):
         "zipcode": fake.zipcode()
     }
     
-def create_transaction(account_number):
+def create_transaction(account_number, value=0):
     type = random.choice([
             "DEPOSIT",
             "WITHDRAWAL",
@@ -100,10 +102,16 @@ def create_transaction(account_number):
             "ATM",
             "DEBIT_CARD",
             "APP"])
+    if value == 0:
+        value = round(random.randint(100,1200000))
+    else:
+        type = "DEPOSIT"
+        method = "ATM"
+
     return {
         "type": type,
         "method": method,
-        "amount": round(random.randint(100,1200000)),
+        "amount": value,
         "merchantCode": "ALINE",
         "description": f"{type} transaction using method: {method}",
         "accountNumber": account_number

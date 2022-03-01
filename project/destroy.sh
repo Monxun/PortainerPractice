@@ -7,6 +7,7 @@ docker rm --force ms-gateway
 docker rm --force ms-underwriter
 docker rm --force ms-user
 docker rm --force ms-transaction
+docker rm --force ci-producer
 
 yes | docker image prune -a
 

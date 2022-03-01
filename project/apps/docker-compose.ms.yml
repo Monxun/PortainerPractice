@@ -12,6 +12,8 @@ services:
     ports:
       - "8080:8080"
     env_file: ./MS-gateway/.env
+    networks:
+      - aline
 
   ms-bank:
     image: ms-bank
@@ -23,6 +25,8 @@ services:
     ports:
       - '8083:8083'
     env_file: ./MS-bank/.env
+    networks:
+      - aline
 
   ms-transaction:
     image: ms-transaction
@@ -34,6 +38,8 @@ services:
     ports:
       - '8073:8073'
     env_file: ./MS-transaction/.env
+    networks:
+      - aline
 
   ms-underwriter:
     image: ms-underwriter
@@ -45,6 +51,8 @@ services:
     ports:
       - '8071:8071'
     env_file: ./MS-underwriter/.env
+    networks:
+      - aline
 
   ms-user:
     image: ms-user
@@ -56,7 +64,12 @@ services:
     ports:
       - '8070:8070'
     env_file: ./MS-user/.env
+    networks:
+      - aline
 
-
+networks:
+  aline:
+    external:
+      name: aline
 
   
