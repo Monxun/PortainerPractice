@@ -6,8 +6,9 @@ spring:
     name: "bank-microservice"
   jpa:
     hibernate:
-      ddl-auto: create
-    show-sql: true
+      ddl-auto: ${DDL_AUTO}
+    database-platform: "org.hibernate.dialect.H2Dialect"
+    # show-sql: true
   datasource:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}

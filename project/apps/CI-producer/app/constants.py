@@ -1,8 +1,15 @@
-applications_url = "http://ms-underwriter:8071/applications"
-registration_url = "http://ms-user:8070/users/registration"
-login_url = "http://ms-user:8070/login"
+import os
+
+BANK_URL = os.environ['BANK_URL']
+TRANSACTION_URL = os.environ['TRANSACTION_URL']
+UNDERWRITER_URL = os.environ['UNDERWRITER_URL']
+USER_URL = os.environ['USER_URL']
+
+applications_url = f"http://{UNDERWRITER_URL}/applications"
+registration_url = f"http://{USER_URL}/users/registration"
+login_url = f"http://{USER_URL}/login"
 
 # Requires bearer token
-bank_url = "http://ms-bank:8083/banks"
-branch_url = "http://ms-bank:8083/branches"
-transaction_url = "http://ms-transaction:8073/transactions"
+bank_url = f"http://{BANK_URL}/banks"
+branch_url = f"http://{BANK_URL}/branches"
+transaction_url = f"http://{TRANSACTION_URL}/transactions"

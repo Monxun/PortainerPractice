@@ -11,11 +11,11 @@ from  sqlalchemy.sql.expression import func
 
 #################################################
 # DATABASE CONNECTOR
-user = os.environ['DB_USERNAME']
-password = os.environ['DB_PASSWORD']
-host = os.environ['DB_HOST']
-port = os.environ['DB_PORT']
-name = os.environ['DB_NAME']
+user = 'user'
+password = 'root'
+host = 'localhost'
+port = 3306
+name = 'alinedb'
 
 engine = sqlalchemy.create_engine(
     f'mysql+pymysql://{user}:{password}@{host}:{port}/{name}',
@@ -35,22 +35,9 @@ my_session = Session()
 # TEST
 
 '''
-Module to test producers.py
+Module to test producers
 '''
 
-from producers import (
-    create_applicants,
-    create_banks,
-    create_merchants,
-    create_applications,
-    create_branches,
-    create_members,
-    create_accounts,
-    create_users,
-    create_one_time_passcodes,
-    create_transactions,
-    create_user_registration_tokens
-)
 
 from models import (
     Applicant, 

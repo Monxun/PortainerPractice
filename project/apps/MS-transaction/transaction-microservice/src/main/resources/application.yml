@@ -6,7 +6,7 @@ spring:
     name: "transaction"
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: ${DDL_AUTO}
     show-sql: false
   datasource:
     username: ${DB_USERNAME}
@@ -20,18 +20,18 @@ app:
   member-dashboard: "${PORTAL_DASHBOARD}"
   landing-portal: "${PORTAL_LANDING}"
   sms:
-    enable: true
+    enable: false
   email:
     from: "no-reply@alinefinancial.com"
-    enable: true
+    enable: false
   security:
     secret-key: "${ENCRYPT_SECRET_KEY}"
     jwt:
       secret-key: "${JWT_SECRET_KEY}"
   aws:
     email:
-      template-bucket-name: "aline-email-templates"
+      template-bucket-name: ${S3_TEMPLATE_BUCKET}
     credentials:
-      access-key-id: "${APP_USER_ACCESS_KEY}"
-      secret-access-key: "${APP_USER_SECRET_KEY}"
+      access-key-id: ${APP_USER_ACCESS_KEY}
+      secret-access-key: ${APP_USER_SECRET_KEY}
 
