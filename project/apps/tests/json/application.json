@@ -1,0 +1,24 @@
+{
+    "applicationType": "SAVINGS",
+    "noApplicants": false,
+     "applicants": [{
+             "firstName": "Lisa",
+             "middleName": "Edgar",
+             "lastName": "Hall",
+             "address": "778 Scott Streets", 
+             "city": "Lake Christina", 
+             "dateOfBirth": "1980-08-18", 
+             "driversLicense": "Y1234568", 
+             "email": "silvaryan@example.org",  
+             "gender": "FEMALE", 
+             "income": 10000000, 
+             "mailingAddress": "549 Courtney Way", 
+             "mailingCity": "South Linda", 
+             "mailingState": "New York", 
+             "mailingZipcode": "65018",  
+             "phone": "905-569-0155", 
+             "socialSecurity": "368-15-2290", 
+             "state": "New York", 
+             "zipcode": "75486"
+     }]
+    }

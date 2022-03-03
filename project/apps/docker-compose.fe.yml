@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  # FRONTEND
+  fe-admin:
+    image: fe-admin
+    container_name: fe-admin
+    build:
+      context: ./FE-admin
+      dockerfile: Dockerfile.admin
+    ports:
+      - "8085:8085"
+    env_file: ./FE-admin/.env
+
+  fe-dashboard:
+    image: fe-dashboard
+    container_name: fe-dashboard
+    build:
+      context: ./FE-dashboard
+      dockerfile: Dockerfile.dashboard
+    ports:
+      - "8086:8086"
+    env_file: ./FE-dashboard/.env
+
+  fe-landing:
+    image: fe-landing
+    container_name: fe-landing
+    build:
+      context: ./FE-landing
+      dockerfile: Dockerfile.landing
+    ports:
+      - "8087:8087"
+    env_file: ./FE-landing/.env.dev
+
+
+
+
+
+
+  

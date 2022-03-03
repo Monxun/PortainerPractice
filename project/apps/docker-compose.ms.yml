@@ -1,0 +1,75 @@
+version: '3'
+services:
+
+  # MICROSERVICES
+  ms-gateway:
+    image: ms-gateway
+    container_name: ms-gateway
+    restart: always
+    build:
+      context: ./MS-gateway
+      dockerfile: Dockerfile.gateway
+    ports:
+      - "8080:8080"
+    env_file: ./MS-gateway/.env
+    networks:
+      - aline
+
+  ms-bank:
+    image: ms-bank
+    container_name: ms-bank
+    restart: always
+    build:
+      context: ./MS-bank
+      dockerfile: Dockerfile.bank
+    ports:
+      - '8083:8083'
+    env_file: ./MS-bank/.env
+    networks:
+      - aline
+
+  ms-transaction:
+    image: ms-transaction
+    container_name: ms-transaction
+    restart: always
+    build:
+      context: ./MS-transaction
+      dockerfile: Dockerfile.transaction
+    ports:
+      - '8073:8073'
+    env_file: ./MS-transaction/.env
+    networks:
+      - aline
+
+  ms-underwriter:
+    image: ms-underwriter
+    container_name: ms-underwriter
+    restart: always
+    build:
+      context: ./MS-underwriter
+      dockerfile: Dockerfile.underwriter
+    ports:
+      - '8071:8071'
+    env_file: ./MS-underwriter/.env
+    networks:
+      - aline
+
+  ms-user:
+    image: ms-user
+    container_name: ms-user
+    restart: always
+    build:
+      context: ./MS-user
+      dockerfile: Dockerfile.user
+    ports:
+      - '8070:8070'
+    env_file: ./MS-user/.env
+    networks:
+      - aline
+
+networks:
+  aline:
+    external:
+      name: aline
+
+  

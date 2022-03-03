@@ -1,8 +1,8 @@
-Build Services: 
-    $ sh build.sh
+step 1: 
+    docker-compose -f docker-compose.db.yml up -d
 
-Build + Deploy Containers: 
-    $ sh deploy.sh
+step 2: 
+    docker-compose -f docker-compose.ms.yml up -d
 
-Destroy Containers + Images: 
-    $ sh destroy.sh
+step 3: 
+    docker-compose -f docker-compose.fe.yml up -d

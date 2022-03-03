@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+# DATABASES
+  db-aline:
+    user: root
+    image: mysql
+    container_name: db-aline
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    env_file: ./DB-aline/.env
+    volumes:
+      - ./DB-aline/init:/docker-entrypoint-initdb.d
+    ports:
+      - '3306:3306'
+    networks:
+      - aline
+
+  # ADMIN
+  adminer:
+    image: adminer:latest
+    container_name: db-adminer
+    restart: always
+    environment:
+        ADMINER_DEFAULT_SERVER: db-aline
+        ADMINER_DESIGN: dracula
+    ports:
+      - '8084:8080'
+    networks:
+      - aline
+
+networks:
+  aline:
+    external:
+      name: aline
+
+
+
+
+  
