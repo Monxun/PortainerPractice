@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: fe-dashboard-dockerfiles-env--env-dashboard
-  name: dockerfiles-env--env-dashboard

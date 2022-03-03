@@ -6,11 +6,11 @@ services:
     image: ci-producer
     container_name: ci-producer
     build:
-      context: ./CI-producer
+      context: ./dockerfiles
       dockerfile: Dockerfile.producer
     ports:
       - "5050:5050"
-    env_file: ./CI-producer/.env
+    env_file: ./dockerfiles/.env
     networks:
       - aline
 
