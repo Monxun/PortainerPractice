@@ -7,13 +7,13 @@ Step 1:
 
 Step 2:
 - BUILD ALL JARS:
-   bash build.sh
+   `bash build.sh`
   
 - DEPLOY DB + MICROSERVICES:
-   bash deploy.sh
+   `bash deploy.sh`
    
 - DEPLOY CICD/PRODUCERS (run after verifying all services have started their tomcat servers first using docker desktop > logs):
-   bash cicd.sh
+   `bash cicd.sh`
 
 
 
