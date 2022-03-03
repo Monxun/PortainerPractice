@@ -13,7 +13,7 @@ Step 2:
    `bash deploy.sh`
    
 - DEPLOY CICD/PRODUCERS 
-- (run after verifying all services have started their tomcat servers first using docker desktop > logs):
+   (run after verifying all services have started their tomcat servers first using docker desktop > logs):
    `bash cicd.sh`
 
 
