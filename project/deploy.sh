@@ -9,8 +9,10 @@ source ./deploy_db.sh
 cd scripts
 source ./deploy_backend.sh
 cd scripts
-# sleep 1m
-# source ./deploy_ci.sh
+echo "SERVICES INTIALIZING... 2m"
+sleep 2m
+echo "STEP-4: DEPLOY PRODUCERS"
+source ./deploy_ci.sh
 
 # BACKEND DEPLOY
 #sleep 1m
