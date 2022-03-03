@@ -15,8 +15,10 @@ Step 2:
 - DEPLOY CICD/PRODUCERS 
    (run after verifying all services have started their tomcat servers first):
    `bash cicd.sh`
-
-
+   
+Step 3:
+- Check database using adminer 
+- Check docker desktop > apps > container_name > logs & inspect 
 
 
 # RUN CICD
