@@ -8,7 +8,7 @@ source destroy.sh
 echo "STEP-2: BUILD JAR FILES"
 source build.sh
 echo "STEP-3: DEPLOY DB + MS"
-source deploy.
+source deploy.sh
 echo "(SERVICES INITIALIZING... 2 MINUTES)"
 sleep 2 min
 echo "STEP-4: DEPLOY PRODUCERS"
