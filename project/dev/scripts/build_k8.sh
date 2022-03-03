@@ -27,3 +27,6 @@ cd ..
 cd K8-cd
 # kompose -f docker-compose.cd.yml convert
 cd ..
+
+cd ..
+cd scripts
