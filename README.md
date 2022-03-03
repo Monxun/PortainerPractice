@@ -20,5 +20,9 @@ Step 3:
 - Check database using adminer 
 - Check docker desktop > apps > container_name > logs & inspect 
 
+Step 4:
+- DESTROY DB + MICROSERVICES + IMAGES:
+   `bash destroy.sh`
+
 
 # RUN CICD
