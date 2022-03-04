@@ -14,6 +14,3 @@ cd ..
 echo "STEP-3: DEPLOY DB + MS"
 source deploy.sh
 cd ..
-
-echo "STEP-5: CREATE KUBERNETES FILES FROM COMPOSE FILES"
-source k8.sh
