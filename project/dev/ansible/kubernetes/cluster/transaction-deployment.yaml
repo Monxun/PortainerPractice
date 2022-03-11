@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-transaction
+spec:
+  ports:
+  - port: 8073
+  selector:
+    app: ms-transaction
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-transaction
+spec:
+  selector:
+    matchLabels:
+      app: ms-transaction
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ms-transaction
+    spec:
+      containers:
+      - name: ms-transaction
+        image: ms-transaction
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
+        ports:
+        - containerPort: 8073
+          name: ms-transaction

@@ -8,7 +8,6 @@ spec:
   selector:
     app: mysql-db
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,15 +27,10 @@ spec:
       - image: mysql:latest
         name: mysql-db
         env:
+          # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
-          value: {{ MYSQL_ROOT_PASSWORD }}
-        - name: MYSQL_USER
-          value: {{ MYSQL_USER }}
-        - name: MYSQL_PASSWORD
-          value: {{ MYSQL_PASSWORD }}
-        - name: MYSQL_DATABASE
-          value: {{ mMYSQL_DATABASE }}        
-	ports:
+          value: root
+        ports:
         - containerPort: 3306
           name: mysql-db
         volumeMounts:

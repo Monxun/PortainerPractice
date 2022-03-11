@@ -4,5 +4,5 @@
 
 cd project
 
-echo "STEP-5: CREATE KUBERNETES FILES FROM COMPOSE FILES"
-source k8.sh
+echo "BUILD IMAGES AND CREATE PODS"
+source deploy_k8.sh
