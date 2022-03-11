@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-db
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql-db
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-db
+spec:
+  selector:
+    matchLabels:
+      app: mysql-db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql-db
+    spec:
+      containers:
+      - image: mysql:latest
+        name: mysql-db
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ MYSQL_ROOT_PASSWORD }}
+        - name: MYSQL_USER
+          value: {{ MYSQL_USER }}
+        - name: MYSQL_PASSWORD
+          value: {{ MYSQL_PASSWORD }}
+        - name: MYSQL_DATABASE
+          value: {{ mMYSQL_DATABASE }}        
+	ports:
+        - containerPort: 3306
+          name: mysql-db
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

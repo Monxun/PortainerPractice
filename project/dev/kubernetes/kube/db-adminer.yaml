@@ -1,0 +1,48 @@
+# ... Deployment YAML definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: db-adminer
+  name: db-adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-adminer
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: db-adminer
+    spec:
+      containers:
+      - image: adminer
+        name: adminer
+        resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+# ... Service YAML definition
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: db-adminer
+  name: db-adminer
+spec:
+  ports:
+  - name: 8084-8080
+    port: 8084
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: db-adminer
+  type: ClusterIP
+status:
+  loadBalancer: {}

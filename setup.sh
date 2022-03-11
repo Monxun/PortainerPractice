@@ -10,7 +10,11 @@ apt install net-tools
 wget https://github.com/kubernetes/kompose/releases/download/v1.26.1/kompose_1.26.1_amd64.deb # Replace 1.26.1 with latest tag
 sudo apt install ./kompose_1.26.1_amd64.deb -y
 
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
+# RUN DOCKER BENCH TO CHECK INSTALLATION ALSO RUN AFTER DEPLOYMENT TO VERIFY HEALTH
 
-# TODO: CREATE SCRIPT TO SETUP CICD PIPELINE AND STAGING SERVER ON SEPARATE NETWORKS OR SERVERS
+git clone https://github.com/docker/docker-bench-security.git
+cd docker-bench-security
+sudo sh docker-bench-security.sh
+
+# INSTALL ZSH
+apt-get install zsh -y

@@ -1,0 +1,53 @@
+# ... Deployment YAML definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ms-transaction
+  name: ms-transaction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-transaction
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ms-transaction
+    spec:
+      containers:
+      - image: ms-transaction
+        name: ms-transaction
+        ports: 
+        - containerPort: 8083
+        envFrom:
+        - secretRef:
+            name: ms-transaction-secret
+        resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+# ... Service YAML definition
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ms-transaction
+  name: ms-transaction
+spec:
+  ports:
+  - name: 8073-8073
+    port: 8073
+    protocol: TCP
+    targetPort: 8073
+  selector:
+    app: ms-transaction
+  type: ClusterIP
+status:
+  loadBalancer: {}

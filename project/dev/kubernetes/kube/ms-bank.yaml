@@ -1,0 +1,53 @@
+# ... Deployment YAML definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ms-bank
+  name: ms-bank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-bank
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ms-bank
+    spec:
+      containers:
+      - image: ms-bank
+        name: ms-bank
+        ports: 
+        - containerPort: 8083
+        envFrom:
+        - secretRef:
+            name: ms-bank-secret
+        resources: {}
+      restartPolicy: Always
+status: {}
+
+---
+
+# ... Service YAML definition
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ms-bank
+  name: ms-bank
+spec:
+  ports:
+  - name: 8083-8083
+    port: 8083
+    protocol: TCP
+    targetPort: 8083
+  selector:
+    app: ms-bank
+  type: ClusterIP
+status:
+  loadBalancer: {}

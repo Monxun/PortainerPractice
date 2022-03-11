@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-underwriter
+spec:
+  ports:
+  - port: 8071
+  selector:
+    app: ms-underwriter
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-underwriter
+spec:
+  selector:
+    matchLabels:
+      app: ms-underwriter
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ms-underwriter
+    spec:
+      containers:
+      - image: ms-underwriter
+        name: ms-underwriter
+        env:
+        - name: APP_PORT
+          value: 8071
+        - name: DDL_AUTO
+          value: {{ DDL_AUTO }}
+        - name: DB_USERNAME
+          value: {{ DB_USERNAME }}
+        - name: DB_PASSWORD
+          value: {{ DB_PASSWORD }}
+        - name: DB_HOST
+          value: {{ DB_HOST }}
+        - name: DB_PORT
+          value: {{ DB_PORT }}
+        - name: DB_NAME
+          value: {{ DB_NAME }}
+        - name: ENCRYPT_SECRET_KEY
+          value: {{ ENCRYPT_SECRET_KEY }}
+        - name: JWT_SECRET_KEY
+          value: {{ JWT_SECRET_KEY }}
+        - name: APP_USER_ACCESS_KEY
+          value: {{ APP_USER_ACCESS_KEY }}
+        - name: APP_USER_SECRET_KEY
+          value: {{ APP_USER_SECRET_KEY }}
+        - name: S3_TEMPLATE_BUCKET
+          value: {{ S3_TEMPLATE_BUCKET }}
+        - name: PORTAL_ADMIN
+          value: {{ PORTAL_ADMIN }}
+        - name: PORTAL_DASHBOARD
+          value: {{ PORTAL_DASHBOARD }}
+        - name: PORTAL_LANDING
+          value: {{ PORTAL_LANDING }}
+        ports:
+        - containerPort: 8071
+          name: ms-underwriter

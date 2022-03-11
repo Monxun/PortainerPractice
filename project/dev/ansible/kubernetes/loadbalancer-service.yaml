@@ -1,0 +1,102 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: db-aline
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: db-aline
+    image: db-aline
+    args:
+    - "-text=foo"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: db-adminer
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: db-adminer
+    image: db-adminer
+    args:
+    - "-text=bar"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ms-gateway
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: ms-gateway
+    image: ms-gateway
+    args:
+    - "-text=bar"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ms-bank
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: ms-bank
+    image: ms-bank
+    args:
+    - "-text=bar"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ms-transaction
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: ms-transaction
+    image: ms-transaction
+    args:
+    - "-text=bar"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ms-underwriter
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: ms-underwriter
+    image: ms-underwriter
+    args:
+    - "-text=bar"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: ms-user
+  labels:
+    app: aline-backend
+spec:
+  containers:
+  - name: ms-user
+    image: ms-user
+    args:
+    - "-text=bar"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: aline-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: aline-backend
+  ports:
+  # Default port used by the image
+  - port: 5678
