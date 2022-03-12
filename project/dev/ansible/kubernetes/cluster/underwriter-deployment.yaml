@@ -5,7 +5,8 @@ metadata:
   namespace: dev
 spec:
   ports:
-  - port: 8071
+  - port: 80
+    targetPort: 8071
   selector:
     app: ms-underwriter
 ---

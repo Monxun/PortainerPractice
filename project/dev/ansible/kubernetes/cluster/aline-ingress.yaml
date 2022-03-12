@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aline-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /(users|login).*
+        backend:
+          service:
+            name: ms-user
+            port:
+              number: 8070
+      - pathType: Prefix
+        path: /(applicants|applications).*
+        backend:
+          service:
+            name: ms-underwriter
+            port:
+              number: 8071
+      - pathType: Prefix
+        path: /(members|branches|banks).*
+        backend:
+          service:
+            name: ms-bank
+            port:
+              number: 8083
+      - pathType: Prefix
+        path: /(transactions).*
+        backend:
+          service:
+            name: ms-bank
+            port:
+              number: 8083

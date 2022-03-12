@@ -56,6 +56,7 @@ data:
     help: "https://kind.sigs.k8s.io/docs/user/local-registry/"
 EOF
 
+# CREATE NAMESPACE AND SET TO NAMESPACE
 cd ..
 cd ansible
 kubectl create -f ./kubernetes/cluster/namespace-dev.yaml

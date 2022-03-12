@@ -4,9 +4,9 @@ metadata:
   name: aline-configmap
   namespace: dev
 data:
-  ADMINER_DEFAULT_SERVER: status.hostIP
+  ADMINER_DEFAULT_SERVER: "mysql-db"
   ADMINER_DESIGN: "dracula"
-  APP_SERVICE_HOST: "localhost"
+  APP_SERVICE_HOST: status.hostIP
   MYSQL_ROOT_PASSWORD: "root"
   MYSQL_USER: "user"
   MYSQL_PASSWORD: "root"

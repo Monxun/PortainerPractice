@@ -5,7 +5,8 @@ metadata:
   namespace: dev
 spec:
   ports:
-  - port: 8070
+  - port: 80
+    targetPort: 8070
   selector:
     app: ms-user
 ---
