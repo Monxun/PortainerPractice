@@ -2,7 +2,8 @@
 
 cd ..
 cd ansible
-kubectl use-context dev
-kubectl create -f ./kubernetes/cluster/aline-secrets.yaml
-kubectl create -f ./kubernetes/cluster/aline-configmap.yaml
-kubectl create -f ./kubernetes/cluster
+kubectl create -f ./kubernetes/config/namespace-dev.yaml
+kubectl create -f ./kubernetes/config/aline-secrets.yaml --namespace=dev
+kubectl create -f ./kubernetes/config/aline-configmap.yaml --namespace=dev
+kubectl create -f ./kubernetes/config/mysql-pv.yaml --namespace=dev
+kubectl create -f ./kubernetes/cluster --namespace=dev

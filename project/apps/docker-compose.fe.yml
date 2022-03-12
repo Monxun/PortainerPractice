@@ -6,14 +6,14 @@ services:
     image: fe-admin
     container_name: fe-admin
     build:
-      context: ./FE-admin
+      context: ./FE-admin:0.1
       dockerfile: Dockerfile.admin
     ports:
       - "8085:8085"
     env_file: ./FE-admin/.env
 
   fe-dashboard:
-    image: fe-dashboard
+    image: fe-dashboard:0.1
     container_name: fe-dashboard
     build:
       context: ./FE-dashboard
@@ -23,7 +23,7 @@ services:
     env_file: ./FE-dashboard/.env
 
   fe-landing:
-    image: fe-landing
+    image: fe-landing:0.1
     container_name: fe-landing
     build:
       context: ./FE-landing

@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ms-bank
+  namespace: dev
 spec:
   ports:
   - port: 8083
@@ -12,6 +13,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ms-bank
+  namespace: dev
 spec:
   selector:
     matchLabels:
@@ -25,7 +27,7 @@ spec:
     spec:
       containers:
       - name: ms-bank
-        image: ms-bank
+        image: localhost:5001/ms-bank:01
         envFrom:
           - configMapRef:
               name: aline-configmap

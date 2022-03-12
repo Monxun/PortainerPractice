@@ -3,7 +3,7 @@ services:
 
   # MICROSERVICES
   ms-gateway:
-    image: ms-gateway
+    image: ms-gateway:0.1
     container_name: ms-gateway
     restart: always
     build:
@@ -16,7 +16,7 @@ services:
       - aline
 
   ms-bank:
-    image: ms-bank
+    image: ms-bank:0.1
     container_name: ms-bank
     restart: always
     build:
@@ -29,7 +29,7 @@ services:
       - aline
 
   ms-transaction:
-    image: ms-transaction
+    image: ms-transaction:0.1
     container_name: ms-transaction
     restart: always
     build:
@@ -42,7 +42,7 @@ services:
       - aline
 
   ms-underwriter:
-    image: ms-underwriter
+    image: ms-underwriter:0.1
     container_name: ms-underwriter
     restart: always
     build:
@@ -55,7 +55,7 @@ services:
       - aline
 
   ms-user:
-    image: ms-user
+    image: ms-user:0.1
     container_name: ms-user
     restart: always
     build:

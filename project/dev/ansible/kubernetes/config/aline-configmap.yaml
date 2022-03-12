@@ -2,7 +2,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: aline-configmap
+  namespace: dev
 data:
+  ADMINER_DEFAULT_SERVER: status.hostIP
+  ADMINER_DESIGN: "dracula"
+  APP_SERVICE_HOST: "localhost"
+  MYSQL_ROOT_PASSWORD: "root"
+  MYSQL_USER: "user"
+  MYSQL_PASSWORD: "root"
+  MYSQL_DATABASE: "alinedb"
   DDL_AUTO: "create-only"
   DB_USERNAME: "root"
   DB_PASSWORD: "root"
