@@ -1,0 +1,57 @@
+- name: Create cloud instances
+
+  hosts: localhost
+
+  vars_files:
+
+  - cloud-config.yaml
+
+  - credentials.yaml
+
+  tasks:
+
+  - name: Create instance
+
+    gcp_compute_instance:
+
+      name: "{{item.name}}"
+
+      machine_type: "{{item.gce_machine_type}}"
+
+      disks:
+
+      - auto_delete: true
+
+        boot: true
+
+        initialize_params:
+
+           source_image: "{{item.gce_source_image}}"
+
+      network_interfaces:
+
+      - network:
+
+          selfLink: global/networks/default     
+
+      metadata:
+
+        managed-by: "Ansible"
+
+        ssh-keys: ":\n"
+
+      zone: "{{item.gce_zone}}"
+
+      project: "{{item.gce_project}}"
+
+      auth_kind: serviceaccount
+
+      service_account_contents: "null"
+
+      state: present
+
+      status: RUNNING
+
+    register: gce_instance
+
+    loop: ""

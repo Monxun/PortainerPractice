@@ -1,0 +1,39 @@
+instances:
+
+- name: instance-01
+
+  gce_machine_type: f1-micro
+
+  gce_source_image: projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-l$
+
+  gce_zone: us-west1-a
+
+  gce_project: aline-financial
+
+- name: instance-02
+
+  gce_machine_type: f1-micro
+
+  gce_source_image: projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-l$
+
+  gce_zone: us-west1-a
+
+  gce_project: aline-financial
+
+- name: instance-03
+
+  gce_machine_type: f1-micro
+
+  gce_source_image: projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-l$
+
+  gce_zone: us-west1-a
+
+  gce_project: aline-financial
+
+admin_username: admin
+
+admin_ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8iD2fmdnhjkesowtGqed12AQW5Bns90RTKzdx4tRYnOLjV9ZhZtYrsawYxk4MEAxQbPuqadmmbJmgbNF>
+
+--------[output omitted]----------------
+
+w+ZyZUk= user@local
