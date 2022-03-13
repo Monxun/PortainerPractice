@@ -1,0 +1,23 @@
+- name: Delete instance(s)
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    service_account_email: aline-917@aline-financial.iam.gserviceaccount.com 
+    credentials_file: key.json
+    project_id: aline-financial
+    zone: us-west1-a
+
+
+  tasks:
+
+    - name: Destroy instances
+
+      gce:
+        instance_names: "{{ instances }}"
+        zone: "{{ zone }}"
+        project_id: "{{ project_id }}"
+        credentials_file: "{{ credentials_file }}"
+        service_account_email: "{{ service_account_email }}"
+        state: absent

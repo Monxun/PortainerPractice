@@ -1,0 +1,5 @@
+service_account_email: aline-917@aline-financial.iam.gserviceaccount.com 
+credentials_file: key.json
+project_id: aline-financial
+machine_type: f1-micro
+image: projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-l$
