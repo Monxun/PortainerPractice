@@ -4,9 +4,9 @@
 
   vars_files:
 
-  - cloud-config.yaml
+  - cloud-config.yml
 
-  - credentials.yaml
+  - credentials.yml
 
   tasks:
 
