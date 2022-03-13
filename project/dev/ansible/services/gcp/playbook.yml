@@ -1,57 +1,69 @@
-- name: Create cloud instances
-
+- name: 'Deploy gcp vm'
   hosts: localhost
+  connection: local
+  become: false
+  gather_facts: no
 
-  vars_files:
+  vars: 
+    gcp_project: "aline-financial"
+    gcp_cred_kind: "serviceaccount"
+    gcp_cred_file: "key.json"
+    gcp_region: "us-west1"
+    gcp_zone: "us-west1-a"
 
-  - cloud-config.yml
 
-  - credentials.yml
-
+  # Roles & Tasks
   tasks:
 
-  - name: Create instance
-
-    gcp_compute_instance:
-
-      name: "{{item.name}}"
-
-      machine_type: "{{item.gce_machine_type}}"
-
-      disks:
-
-      - auto_delete: true
-
-        boot: true
-
-        initialize_params:
-
-           source_image: "{{item.gce_source_image}}"
-
-      network_interfaces:
-
-      - network:
-
-          selfLink: global/networks/default     
-
-      metadata:
-
-        managed-by: "Ansible"
-
-        ssh-keys: ":\n"
-
-      zone: "{{item.gce_zone}}"
-
-      project: "{{item.gce_project}}"
-
-      auth_kind: serviceaccount
-
-      service_account_contents: "null"
-
+  - name: create a disk
+    gcp_compute_disk:
+      name: disk-instance
+      size_gb: 50
+      source_image: projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts
+      zone: "{{ gcp_zone }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
       state: present
+    register: disk
 
-      status: RUNNING
+  - name: create a network
+    gcp_compute_network:
+      name: network-instance
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
+      state: present
+    register: network
 
-    register: gce_instance
+  - name: create a address
+    gcp_compute_address:
+      name: address-instance
+      region: "{{ gcp_region }}"
+      project: "{{ gcp_project }}"
+      auth_kind: "{{ gcp_cred_kind }}"
+      service_account_file: "{{ gcp_cred_file }}"
+      state: present
+    register: address
 
-    loop: ""
+  - name: create a instance
+    gcp_compute_instance:
+      name: vm-instance
+      project: "{{ gcp_project }}"
+      zone: "{{ gcp_zone }}"
+      machine_type: n1-standard-1
+      disks:
+      - auto_delete: 'true'
+        boot: 'true'
+        source: "{{ disk }}"
+      labels:
+        environment: testing
+      network_interfaces:
+      - network: "{{ network }}"
+        access_configs:
+        - name: External NAT
+          nat_ip: "{{ address }}"
+          type: ONE_TO_ONE_NAT
+      auth_kind: serviceaccount
+      service_account_file: "{{ gcp_cred_file }}"
+      state: present
