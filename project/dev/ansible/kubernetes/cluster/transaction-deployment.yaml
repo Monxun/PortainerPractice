@@ -4,9 +4,10 @@ metadata:
   name: ms-transaction
   namespace: dev
 spec:
+  type: NodePort
   ports:
-  - port: 80
-    targetPort: 8073
+  - port: 8073
+    nodePort: 8073
   selector:
     app: ms-transaction
 ---

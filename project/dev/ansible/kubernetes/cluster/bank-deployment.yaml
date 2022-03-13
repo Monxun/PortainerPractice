@@ -4,9 +4,10 @@ metadata:
   name: ms-bank
   namespace: dev
 spec:
+  type: NodePort
   ports:
-  - port: 80
-    targetPort: 8083
+  - port: 8083
+    nodePort: 8083
   selector:
     app: ms-bank
 ---
