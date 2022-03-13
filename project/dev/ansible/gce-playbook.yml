@@ -1,0 +1,21 @@
+- name : "create and instace in GCP"
+  hosts : localhost
+  
+
+  vars:
+          instance_name : "my-first-instance"
+          machine_type : "f1-micro"
+
+
+  tasks:
+        - name : "check if gcloud is present in out system"
+          command: "gcloud version "
+          register : gcloud_output
+
+        - fail :
+            msg : "please install gloud in your macihne "
+
+          when : "gcloud_output is failed"
+
+        - name : "create instance in gcp"
+          command : "gcloud compute instances create {{instance_name}}  --image-family=rhel-8 --image-project=rhel-cloud  --zone=us-west1-a --machine-type={{machine_type}}"
