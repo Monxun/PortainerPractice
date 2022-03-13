@@ -12,7 +12,7 @@
 
   tasks:
     - name: Launch instances ("{{ instances }}")
-      gce:
+      gcp_compute_instance:
           instance_names: "{{ instances }}"
           machine_type: "{{ machine_type }}"
           image: "{{ image }}"
