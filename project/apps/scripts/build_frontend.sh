@@ -2,10 +2,16 @@
 
 cd ..
 
-cd ./frontend
+cd FE-admin
+npm run build
+cd ..
 
-for d in */ ; do
-    cd $d
-    mvn -B -DskipTests clean install
-    cd ..
-done
+cd FE-dashboard
+npm run build
+cd ..
+
+cd FE-admin
+npm run build
+cd ..
+
+cd scripts
