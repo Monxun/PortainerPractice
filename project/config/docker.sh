@@ -46,40 +46,6 @@ kubectl krew install ctx
 # kubectl ns
 kubectl krew install ns
 
-# INSTALL CONTEXT TERMINAL
-
-
-# CREATE CLUSTER
-kind create cluster
-
-# INSTALL METALLB LOAD BALANCER
-k apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
-k apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
-k get pods -n metallb-system --watch
-METALLB_IP_RANGE=$(docker network inspect -f '{{.IPAM.Config}}' kind 2>&1)
-
-cat <<EOF | kubectl apply -f - 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - {{ METALLB_IP_RANGE }}
-EOF
-
-# CONFIGURE NGINX INGRESS FOR CLUSTER
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml 
-kubectl wait --namespace ingress-nginx \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=90s
-
 # INSTALL KOMPOSE
 wget https://github.com/kubernetes/kompose/releases/download/v1.26.1/kompose_1.26.1_amd64.deb # Replace 1.26.1 with latest tag
 sudo apt install ./kompose_1.26.1_amd64.deb -y

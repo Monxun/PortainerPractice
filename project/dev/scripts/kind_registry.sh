@@ -25,7 +25,7 @@ nodes:
       kubeletExtraArgs:
         node-labels: "ingress-ready=true"
   extraPortMappings:
-  - containerPort: 8084
+  - containerPort: 8080
     hostPort: 8084
     protocol: TCP
   - containerPort: 80
@@ -65,4 +65,26 @@ cd ansible
 kubectl create -f ./kubernetes/config/namespace-dev.yaml
 kubectl config set-context --current --namespace=dev
 
+# APPLY AND CONFIG NGINX INGRESS CONTROLLER
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
+# INSTALL METALLB LOAD BALANCER
+k apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
+k apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
+k get pods -n metallb-system --watch
+METALLB_IP_RANGE=$(docker network inspect -f '{{.IPAM.Config}}' kind 2>&1)
+
+cat <<EOF | kubectl apply -f - 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: metallb-system
+  name: config
+data:
+  config: |
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - {{ METALLB_IP_RANGE }}
+EOF

@@ -1,6 +1,0 @@
-FROM openjdk:latest
-ADD ./underwriter-microservice/target/underwriter-microservice-0.1.0.jar underwriter-microservice-0.1.0.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "underwriter-microservice-0.1.0.jar"]
-
-# add app port variable from mavenfor expose & update jar location

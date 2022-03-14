@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  labels:
-    io.kompose.service: db-aline-dockerfiles-env--env-db
-  name: dockerfiles-env--env-db
