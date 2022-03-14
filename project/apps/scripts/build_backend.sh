@@ -1,7 +1,6 @@
 #!/bin/sh
 
 cd ..
-cd services/backend
 
 for d in */ ; do
     cd $d
