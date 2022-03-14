@@ -9,7 +9,7 @@ services:
       context: ./FE-admin:0.1
       dockerfile: Dockerfile.admin
     ports:
-      - "8085:8085"
+      - "8085:3000"
     env_file: ./FE-admin/.env
 
   fe-dashboard:
@@ -19,7 +19,7 @@ services:
       context: ./FE-dashboard
       dockerfile: Dockerfile.dashboard
     ports:
-      - "8086:8086"
+      - "8086:4200"
     env_file: ./FE-dashboard/.env
 
   fe-landing:
@@ -29,7 +29,7 @@ services:
       context: ./FE-landing
       dockerfile: Dockerfile.landing
     ports:
-      - "8087:8087"
+      - "8087:3000"
     env_file: ./FE-landing/.env.dev
 
 

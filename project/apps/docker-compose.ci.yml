@@ -3,7 +3,7 @@ services:
 
 # PRODUCER
   ci-producer:
-    image: ci-producer
+    image: ci-producer:0.1
     container_name: ci-producer
     build:
       context: ./CI-producer
