@@ -3,15 +3,18 @@
 cd ..
 
 cd FE-admin
-npm run install
+sudo npm install
+sudo npm run build
 cd ..
 
 cd FE-dashboard
-npm run install
+sudo npm install
+sudo npm run build
 cd ..
 
 cd FE-admin
-npm run install
+sudo npm install
+sudo npm run build
 cd ..
 
 cd scripts
