@@ -1,39 +1,39 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ms-user
+  name: adminer
   namespace: dev
 spec:
   ports:
-  - port: 8070
+  - port: 8084
+    targetPort: 8080
   selector:
-    app: ms-user
+    app: adminer
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ms-user
+  name: adminer
   namespace: dev
 spec:
   selector:
     matchLabels:
-      app: ms-user
+      app: adminer
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: ms-user
+        app: adminer
     spec:
       containers:
-      - name: ms-user
-        image: localhost:5001/ms-user:0.1
+      - name: adminer
+        image: localhost:5001/adminer
         envFrom:
           - configMapRef:
               name: aline-configmap
           - secretRef:
               name: aline-secrets
         ports:
-        - containerPort: 8070
-          name: ms-user
+        - containerPort: 8080
+          name: adminer

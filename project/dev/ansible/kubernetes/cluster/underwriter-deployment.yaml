@@ -4,10 +4,8 @@ metadata:
   name: ms-underwriter
   namespace: dev
 spec:
-  type: NodePort
   ports:
   - port: 8071
-    nodePort: 8071
   selector:
     app: ms-underwriter
 ---

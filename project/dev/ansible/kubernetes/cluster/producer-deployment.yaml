@@ -1,39 +1,40 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ms-user
+  name: ci-producer
   namespace: dev
 spec:
+  type: NodePort
   ports:
-  - port: 8070
+  - port: 5050
+    nodePort: 5050
   selector:
-    app: ms-user
+    app: ci-producer
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ms-user
+  name: ci-producer
   namespace: dev
 spec:
   selector:
     matchLabels:
-      app: ms-user
+      app: ci-producer
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: ms-user
+        app: ci-producer
     spec:
       containers:
-      - name: ms-user
-        image: localhost:5001/ms-user:0.1
+      - name: ci-producer
+        image: localhost:5001/ci-producer:0.1
         envFrom:
           - configMapRef:
               name: aline-configmap
           - secretRef:
               name: aline-secrets
         ports:
-        - containerPort: 8070
-          name: ms-user
+        - containerPort: 5050
+          name: ci-producer
