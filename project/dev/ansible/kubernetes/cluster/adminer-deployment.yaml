@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: adminer
-        image: localhost:5001/adminer
+        image: adminer
         envFrom:
           - configMapRef:
               name: aline-configmap
