@@ -4,10 +4,8 @@ metadata:
   name: ci-producer
   namespace: dev
 spec:
-  type: NodePort
   ports:
   - port: 5050
-    nodePort: 5050
   selector:
     app: ci-producer
 ---

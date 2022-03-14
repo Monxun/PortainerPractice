@@ -62,7 +62,7 @@ EOF
 # CREATE NAMESPACE AND SET TO NAMESPACE
 cd ..
 cd ansible
-kubectl create -f ./kubernetes/cluster/namespace-dev.yaml
+kubectl create -f ./kubernetes/config/namespace-dev.yaml
 kubectl config set-context --current --namespace=dev
 
 

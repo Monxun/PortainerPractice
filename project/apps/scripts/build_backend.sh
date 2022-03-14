@@ -9,3 +9,4 @@ for d in */ ; do
     cd ..
 done
 
+cd scripts

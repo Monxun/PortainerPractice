@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# BUILDS AND DEPLOYS ALINE SPRING-BOOT PROJECT AS KUBRERNETES CLUSTER
-
-cd project
-
-echo "BUILD IMAGES AND CREATE PODS"
-source deploy_k8.sh
