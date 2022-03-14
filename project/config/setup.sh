@@ -8,6 +8,7 @@ apt install conntrack
 apt install snap -y
 apt install npm -y
 apt install maven -y
+npm -g install create-react-app
 
 # INSTALL ZSH
 apt-get install zsh -y

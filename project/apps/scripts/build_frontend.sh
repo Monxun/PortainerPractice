@@ -3,15 +3,15 @@
 cd ..
 
 cd FE-admin
-npm run build
+npm run install
 cd ..
 
 cd FE-dashboard
-npm run build
+npm run install
 cd ..
 
 cd FE-admin
-npm run build
+npm run install
 cd ..
 
 cd scripts
