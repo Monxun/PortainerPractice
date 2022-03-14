@@ -26,8 +26,8 @@ spec:
         app: db-aline
     spec:
       containers:
-      - image: mysql:latest
-        name: db-aline
+      - name: db-aline
+        image: mysql:latest
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
