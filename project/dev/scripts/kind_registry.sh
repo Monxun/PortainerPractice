@@ -59,11 +59,6 @@ data:
     help: "https://kind.sigs.k8s.io/docs/user/local-registry/"
 EOF
 
-# CREATE NAMESPACE AND SET TO NAMESPACE
-cd ..
-cd ansible
-kubectl create -f ./kubernetes/config/namespace-dev.yaml
-kubectl config set-context --current --namespace=dev
 
 # APPLY AND CONFIG NGINX INGRESS CONTROLLER
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
@@ -88,3 +83,9 @@ data:
       addresses:
       - {{ METALLB_IP_RANGE }}
 EOF
+
+# CREATE NAMESPACE AND SET TO NAMESPACE
+cd ..
+cd ansible
+kubectl create -f ./kubernetes/config/namespace-dev.yaml
+kubectl config set-context --current --namespace=dev
