@@ -8,7 +8,7 @@ cd apps
 
 docker-compose -f docker-compose.db.yml build
 docker-compose -f docker-compose.ms.yml build
-docker-compose -f docker-compose.fe.yml build
+# docker-compose -f docker-compose.fe.yml build
 docker-compose -f docker-compose.ci.yml build
 # docker-compose -f docker-compose.cd.yml build
 
@@ -41,15 +41,15 @@ docker push localhost:5001/ms-gateway:0.1
 #//////////////////////////////////////////////////////////////////
 # FRONTEND
 
-docker tag fe-admin:0.1 localhost:5001/fe-admin:0.1
-docker push localhost:5001/fe-admin:0.1
+# docker tag fe-admin:0.1 localhost:5001/fe-admin:0.1
+# docker push localhost:5001/fe-admin:0.1
 
-docker tag fe-dashboard:0.1 localhost:5001/fe-dashboard:0.1
-docker push localhost:5001/fe-dashboard:0.1
+# docker tag fe-dashboard:0.1 localhost:5001/fe-dashboard:0.1
+# docker push localhost:5001/fe-dashboard:0.1
 
 
-docker tag fe-landing:0.1 localhost:5001/fe-landing:0.1
-docker push localhost:5001/fe-landing:0.1
+# docker tag fe-landing:0.1 localhost:5001/fe-landing:0.1
+# docker push localhost:5001/fe-landing:0.1
 
 #//////////////////////////////////////////////////////////////////
 #//////////////////////////////////////////////////////////////////
