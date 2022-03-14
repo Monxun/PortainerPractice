@@ -29,11 +29,11 @@ spec:
       containers:
       - name: adminer
         image: adminer
-        envFrom:
-          - configMapRef:
-              name: aline-configmap
-          - secretRef:
-              name: aline-secrets
+        # envFrom:
+        #   - configMapRef:
+        #       name: aline-configmap
+        #   - secretRef:
+        #       name: aline-secrets
         ports:
         - containerPort: 8080
           name: adminer

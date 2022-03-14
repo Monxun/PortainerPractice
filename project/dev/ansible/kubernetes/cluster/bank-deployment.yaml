@@ -28,11 +28,11 @@ spec:
       containers:
       - name: ms-bank
         image: localhost:5001/ms-bank:0.1
-        envFrom:
-          - configMapRef:
-              name: aline-configmap
-          - secretRef:
-              name: aline-secrets
+        # envFrom:
+        #   - configMapRef:
+        #       name: aline-configmap
+        #   - secretRef:
+        #       name: aline-secrets
         ports:
         - containerPort: 8083
           name: ms-bank

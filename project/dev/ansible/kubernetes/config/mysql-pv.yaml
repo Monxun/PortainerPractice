@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-pv-volume
+  name: db-aline-pv-volume
   namespace: dev
   labels:
     type: local
@@ -18,7 +18,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: db-aline-pv-claim
   namespace: dev
 spec:
   storageClassName: manual
