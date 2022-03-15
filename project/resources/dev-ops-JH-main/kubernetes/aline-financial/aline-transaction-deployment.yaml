@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aline-transaction
+spec:
+  ports:
+    - port: 8073
+  selector:
+    app: aline-transaction
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: aline-transaction
+  name: aline-transaction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-transaction
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+        labels: 
+          app: aline-transaction
+    spec:
+      containers:
+        - image: aline-transaction
+          imagePullPolicy: Never
+          name: aline-transaction
+          ports:
+            - containerPort: 8073
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
+

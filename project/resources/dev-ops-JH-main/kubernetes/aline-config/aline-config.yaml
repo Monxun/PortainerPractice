@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aline-config
+data:
+  user_port: "8070"
+  underwriter_port: "8071"
+  transaction_port: "8073"
+  bank_port: "8083"
+  gateway_port: "8080"
+  db_port: "3306"
+  portal_admin: "0.0.0.0"
+  portal_dashboard: "0.0.0.0"
+  portal_landing: "0.0.0.0"
+  app_service_host: "172.18.0.2"

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aline-bank
+spec:
+  ports:
+    - port: 8083
+  selector:
+    app: aline-bank
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: aline-bank
+  name: aline-bank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-bank
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+        labels: 
+          app: aline-bank
+    spec:
+      containers:
+        - image: aline-bank
+          imagePullPolicy: Never
+          name: aline-bank
+          ports:
+            - containerPort: 8083
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always

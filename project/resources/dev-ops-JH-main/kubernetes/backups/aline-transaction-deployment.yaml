@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aline-transaction
+spec:
+  ports:
+    - port: 8073
+  selector:
+    app: aline-transaction
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: aline-transaction
+  name: aline-transaction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aline-transaction
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+        labels: 
+          app: aline-transaction
+    spec:
+      containers:
+        - image: aline-transaction
+          imagePullPolicy: Never
+          name: aline-transaction
+          ports:
+            - containerPort: 8073
+          env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: aline-config
+                  key: transaction_port
+            - name: PORTAL_ADMIN
+              valueFrom:
+                configMapKeyRef:
+                  name: aline-config
+                  key: portal_admin
+            - name: PORTAL_DASHBOARD
+              valueFrom:
+                configMapKeyRef:
+                  name: aline-config
+                  key: portal_dashboard
+            - name: PORTAL_LANDING
+              valueFrom:
+                configMapKeyRef:
+                  name: aline-config
+                  key: portal_landing
+            - name: DB_USERNAME
+              valueFrom: 
+                secretKeyRef: 
+                  name: aline-secret
+                  key: db_username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: aline-secret
+                  key: db_password
+            - name: DB_PORT
+              valueFrom: 
+                configMapKeyRef:
+                  name: aline-config
+                  key: db_port
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aline-secret
+                  key: jwt_secret_key
+            - name: ENCRYPT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aline-secret
+                  key: encrypt_secret_key
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
+

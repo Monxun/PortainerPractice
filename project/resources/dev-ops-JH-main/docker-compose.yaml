@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mysql-db:
+    user: root
+    image: 'mysql'
+    container_name: capstone_jh_mysql
+    restart: 'always'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=users
+    ports:
+      - '3306:3306'
+  adminer:
+    image: 'adminer'
+    container_name: capstone_jh_adminer
+    restart: 'always'
+    ports:
+      - '8084:8080'

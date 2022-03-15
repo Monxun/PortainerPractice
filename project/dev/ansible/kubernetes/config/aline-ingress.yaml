@@ -10,6 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
+  - host: aline-financial.com
   - http:
       paths:
       - pathType: Prefix

@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  aline-gateway:
+    image: aline-gateway
+    restart: always
+    build: 
+      context: ./gateway
+    ports:
+      - 8080:8080
+    networks:
+      - aline
+
+  aline-underwriter:
+    image: aline-underwriter
+    restart: always
+    build:
+      context: ./underwriter
+    ports:
+     - 8071:8071
+    networks:
+     - aline
+  
+  aline-transaction:
+    image: aline-transaction
+    restart: always
+    build:
+      context: ./transaction
+    ports:
+     - 8073:8073
+    networks:
+     - aline
+  
+  aline-bank:
+    image: aline-bank
+    restart: always
+    build:
+      context: ./bank
+    ports: 
+     - 8083:8083
+    networks:
+     - aline
+  
+  aline-user:
+    image: aline-user
+    restart: always
+    build:
+      context: ./user
+    ports:
+     - 8070:8070
+    networks:
+     - aline
+    
+networks:
+  aline:
+      name: dev-ops-jh_default
