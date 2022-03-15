@@ -31,7 +31,7 @@ spec:
       containers:
       - name: ci-producer
         image: localhost:5001/ci-producer:0.1
-        imagePullPolicy: Never
+        # imagePullPolicy: Never
         envFrom:
           - configMapRef:
               name: aline-configmap
