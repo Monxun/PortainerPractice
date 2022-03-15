@@ -28,11 +28,11 @@ spec:
       containers:
       - name: ci-producer
         image: localhost:5001/ci-producer:0.1
-        # envFrom:
-        #   - configMapRef:
-        #       name: aline-configmap
-        #   - secretRef:
-        #       name: aline-secrets
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
         ports:
         - containerPort: 5050
           name: ci-producer

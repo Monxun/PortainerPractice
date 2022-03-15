@@ -30,11 +30,11 @@ spec:
       containers:
       - name: ms-underwriter
         image: localhost:5001/ms-underwriter:0.1
-        # envFrom:
-        #   - configMapRef:
-        #       name: aline-configmap
-        #   - secretRef:
-        #       name: aline-secrets
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
         ports:
         - containerPort: 8071
           name: ms-underwriter

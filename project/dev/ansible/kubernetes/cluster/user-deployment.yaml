@@ -31,11 +31,11 @@ spec:
       containers:
       - name: ms-user
         image: localhost:5001/ms-user:0.1
-        # envFrom:
-        #   - configMapRef:
-        #       name: aline-configmap
-        #   - secretRef:
-        #       name: aline-secrets
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
         ports:
         - containerPort: 8070
           name: ms-user

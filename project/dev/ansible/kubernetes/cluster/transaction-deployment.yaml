@@ -31,11 +31,11 @@ spec:
       containers:
       - name: ms-transaction
         image: localhost:5001/ms-transaction:0.1
-        # envFrom:
-        #   - configMapRef:
-        #       name: aline-configmap
-        #   - secretRef:
-        #       name: aline-secrets
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
         ports:
         - containerPort: 8073
           name: ms-transaction

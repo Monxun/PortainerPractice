@@ -30,10 +30,15 @@ spec:
       containers:
       - image: mysql:latest
         name: db-aline
-        env:
-          # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
-          value: root
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
+        # env:
+        #   # Use secret in real usage
+        # - name: MYSQL_ROOT_PASSWORD
+        #   value: root
         ports:
         - containerPort: 3306
           name: db-aline
