@@ -12,5 +12,5 @@ kubectl create -f ./kubernetes/cluster --namespace=dev
 cd ..
 cd scripts
 
-sleep 1m
-source access-database.sh
+# sleep 1m
+# source access-database.sh
