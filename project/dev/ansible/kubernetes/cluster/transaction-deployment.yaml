@@ -15,6 +15,8 @@ kind: Deployment
 metadata:
   name: ms-transaction
   namespace: dev
+  labels:
+    app: ms-transaction
 spec:
   selector:
     matchLabels:
@@ -37,3 +39,8 @@ spec:
         ports:
         - containerPort: 8073
           name: ms-transaction
+        resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always

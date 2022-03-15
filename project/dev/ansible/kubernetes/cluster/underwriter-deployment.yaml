@@ -14,6 +14,8 @@ kind: Deployment
 metadata:
   name: ms-underwriter
   namespace: dev
+  labels:
+    app: ms-underwriter
 spec:
   selector:
     matchLabels:
@@ -36,3 +38,8 @@ spec:
         ports:
         - containerPort: 8071
           name: ms-underwriter
+        resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always

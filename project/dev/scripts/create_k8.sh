@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source access-database.sh
+
 cd ..
 cd ansible
 

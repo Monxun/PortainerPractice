@@ -89,3 +89,5 @@ cd ..
 cd ansible
 kubectl create -f ./kubernetes/config/namespace-dev.yaml
 kubectl config set-context --current --namespace=dev
+cd ..
+cd scripts

@@ -14,7 +14,10 @@ kind: Deployment
 metadata:
   name: ms-bank
   namespace: dev
+  labels:
+    app: ms-bank
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: ms-bank
@@ -36,3 +39,8 @@ spec:
         ports:
         - containerPort: 8083
           name: ms-bank
+        resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
