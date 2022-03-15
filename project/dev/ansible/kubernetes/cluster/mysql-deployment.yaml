@@ -14,8 +14,6 @@ kind: Deployment
 metadata:
   name: db-aline
   namespace: dev
-  labels:
-    app: db-aline
 spec:
   selector:
     matchLabels:
