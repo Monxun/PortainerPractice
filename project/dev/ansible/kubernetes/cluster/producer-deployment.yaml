@@ -6,6 +6,9 @@ metadata:
 spec:
   ports:
   - port: 5050
+    targetPort: 5050
+    protocol: TCP
+  type: ClusterIP
   selector:
     app: ci-producer
 ---

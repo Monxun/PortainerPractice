@@ -6,6 +6,9 @@ metadata:
 spec:
   ports:
   - port: 8083
+    targetPort: 8083
+    protocol: TCP
+  type: ClusterIP
   selector:
     app: ms-bank
 ---
@@ -40,8 +43,4 @@ spec:
         ports:
         - containerPort: 8083
           name: ms-bank
-        resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
       restartPolicy: Always

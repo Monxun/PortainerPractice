@@ -11,44 +11,51 @@ spec:
     - http:
         paths:
         - pathType: Prefix
+          path: /adminer
+          backend:
+            service:
+              name: adminer
+              port: 
+                number: 8080
+        - pathType: Prefix
           path: /users/registration
           backend:
             service:
-              name: aline-user
+              name: ms-user
               port: 
                 number: 8070
         - pathType: Prefix
           path: /login
           backend:
             service:
-              name: aline-user
+              name: ms-user
               port:
                 number: 8070
         - pathType: Prefix
           path: /applications
           backend:
             service:
-              name: aline-underwriter
+              name: ms-underwriter
               port:
                 number: 8071  
         - pathType: Prefix
           path: /banks
           backend:
             service:
-              name: aline-bank
+              name: ms-bank
               port:
                 number: 8083  
         - pathType: Prefix
           path: /branches
           backend:
             service:
-              name: aline-bank
+              name: ms-bank
               port:
                 number: 8083  
         - pathType: Prefix
           path: /transactions
           backend:
             service:
-              name: aline-transaction
+              name: ms-transaction
               port:
                 number: 8073
