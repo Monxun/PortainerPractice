@@ -1,6 +1,6 @@
 #!/bin/sh
 
-minikube start
+minikube start --cpus 4 --memory 4096 --insecure-registry localhost:5001
 minikube addons enable ingress
 
 # CREATE NAMESPACE AND SET TO NAMESPACE
