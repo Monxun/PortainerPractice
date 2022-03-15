@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: mysql-db
 spec:
+  selector:
+    app: mysql-db
   ports:
   - port: 3306
     targetPort: 3306
     protocol: TCP
-  type: ClusterIP
-  selector:
-    app: mysql-db
+  clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,11 +29,12 @@ spec:
       containers:
       - image: mysql:latest
         name: mysql-db
-        envFrom:
-          - configMapRef:
-              name: aline-configmap
-          - secretRef:
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef: 
               name: aline-secrets
+              key: MYSQL_ROOT_PASSWORD
         ports:
         - containerPort: 3306
           name: mysql-db
