@@ -30,6 +30,7 @@ spec:
       containers:
       - name: ms-underwriter
         image: ms-underwriter:0.1
+        imagePullPolicy: Never
         envFrom:
           - configMapRef:
               name: aline-configmap

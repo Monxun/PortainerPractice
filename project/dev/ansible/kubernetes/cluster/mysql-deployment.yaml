@@ -30,6 +30,7 @@ spec:
       containers:
       - image: mysql:latest
         name: db-aline
+        imagePullPolicy: Never
         envFrom:
           - configMapRef:
               name: aline-configmap
