@@ -61,9 +61,9 @@ EOF
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
 # INSTALL METALLB LOAD BALANCER
-k apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
-k apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
-k get pods -n metallb-system --watch
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
+kubectl get pods -n metallb-system --watch
 METALLB_IP_RANGE=$(docker network inspect -f '{{.IPAM.Config}}' kind 2>&1)
 
 cat <<EOF | kubectl apply -f - 
