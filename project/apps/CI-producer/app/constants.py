@@ -15,11 +15,11 @@
 # transaction_url = f"http://{TRANSACTION_URL}/transactions"
 
 # Kubernetes ingress
-applications_url = "http://localhost/applications"
-registration_url = "http://localhost/users/registration"
-login_url = "http://localhost/login"
+applications_url = "http://aline-financial.com/applications"
+registration_url = "http://aline-financial.com/users/registration"
+login_url = "http://aline-financial.com/login"
 
 # Requires bearer token
-bank_url = "http://localhost/banks"
-branch_url = "http://localhost/branches"
-transaction_url = "http://localhost/transactions"
+bank_url = "http://aline-financial.com/banks"
+branch_url = "http://aline-financial.com/branches"
+transaction_url = "http://aline-financial.com/transactions"
