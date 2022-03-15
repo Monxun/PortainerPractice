@@ -4,7 +4,7 @@ metadata:
   name: aline-configmap
   namespace: dev
 data:
-  ADMINER_DEFAULT_SERVER: "db-aline"
+  ADMINER_DEFAULT_SERVER: "mysql-db"
   ADMINER_DESIGN: "dracula"
   MYSQL_ROOT_PASSWORD: "root"
   MYSQL_USER: "user"
