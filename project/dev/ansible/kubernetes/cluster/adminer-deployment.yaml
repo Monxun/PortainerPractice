@@ -34,11 +34,16 @@ spec:
       containers:
       - name: adminer
         image: adminer
-        envFrom:
-          - configMapRef:
+        - name: ADMINER_DEFAULT_SERVER
+          valueFrom:
+            configMapKeyRef:
               name: aline-configmap
-          - secretRef:
-              name: aline-secrets
+              key: ADMINER_DEFAULT_SERVER
+        - name: ADMINER_DESIGN
+          valueFrom:
+            configMapKeyRef:
+              name: aline-configmap
+              key: ADMINER_DESIGN
         ports:
         - containerPort: 8080
           name: adminer
