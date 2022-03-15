@@ -2,4 +2,11 @@
 
 minikube start
 minikube addons enable ingress
-kubectl get pod -n kube-system
+
+# CREATE NAMESPACE AND SET TO NAMESPACE
+cd ..
+cd ansible
+kubectl create -f ./kubernetes/config/namespace-dev.yaml
+kubectl config set-context --current --namespace=dev
+cd ..
+cd scripts
