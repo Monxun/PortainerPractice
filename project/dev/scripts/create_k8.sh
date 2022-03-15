@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source access-database.sh
-
 cd ..
 cd ansible
 
@@ -10,3 +8,8 @@ cd ansible
 kubectl create -f ./kubernetes/config/mysql-pv.yaml --namespace=dev
 kubectl create -f ./kubernetes/config/aline-ingress.yaml --namespace=dev
 kubectl create -f ./kubernetes/cluster --namespace=dev
+
+cd ..
+cd scripts
+
+source access-database.sh

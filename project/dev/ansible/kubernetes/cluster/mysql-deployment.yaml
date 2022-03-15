@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-aline
+  namespace: dev
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: db-aline
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-aline
+  namespace: dev
+  labels:
+    app: db-aline
+spec:
+  selector:
+    matchLabels:
+      app: db-aline
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: db-aline
+    spec:
+      containers:
+      - image: mysql:latest
+        name: db-aline
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        ports:
+        - containerPort: 3306
+          name: db-aline
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: db-aline-pv-claim
