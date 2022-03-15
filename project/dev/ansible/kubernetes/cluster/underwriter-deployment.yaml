@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: ms-underwriter
-        image: localhost:5001/ms-underwriter:0.1
+        image: ms-underwriter:0.1
         envFrom:
           - configMapRef:
               name: aline-configmap

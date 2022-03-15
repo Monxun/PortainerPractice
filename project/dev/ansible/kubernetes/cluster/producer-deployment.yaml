@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: ci-producer
-        image: localhost:5001/ci-producer:0.1
+        image: ci-producer:0.1
         envFrom:
           - configMapRef:
               name: aline-configmap

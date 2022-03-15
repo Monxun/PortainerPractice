@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: ms-bank
-        image: localhost:5001/ms-bank:0.1
+        image: ms-bank:0.1
         envFrom:
           - configMapRef:
               name: aline-configmap
