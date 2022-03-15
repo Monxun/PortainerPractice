@@ -52,4 +52,4 @@ spec:
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: db-aline-pv-claim
+          claimName: mysql-pv-claim
