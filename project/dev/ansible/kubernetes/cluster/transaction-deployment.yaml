@@ -32,11 +32,11 @@ spec:
       - name: ms-transaction
         image: ms-transaction:0.1
         imagePullPolicy: Never
-        # envFrom:
-        #   - configMapRef:
-        #       name: aline-configmap
-        #   - secretRef:
-        #       name: aline-secrets
+        envFrom:
+          - configMapRef:
+              name: aline-configmap
+          - secretRef:
+              name: aline-secrets
         ports:
         - containerPort: 8073
           name: ms-transaction

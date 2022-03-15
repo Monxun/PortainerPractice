@@ -7,8 +7,6 @@ data:
   ADMINER_DEFAULT_SERVER: "mysql-db"
   ADMINER_DESIGN: "dracula"
   MYSQL_ROOT_PASSWORD: "root"
-  MYSQL_USER: "user"
-  MYSQL_PASSWORD: "root"
   MYSQL_DATABASE: "alinedb"
   DDL_AUTO: "create-only"
   DB_USERNAME: "root"
