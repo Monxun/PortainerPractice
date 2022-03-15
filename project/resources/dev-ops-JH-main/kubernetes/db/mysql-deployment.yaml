@@ -30,6 +30,8 @@ spec:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
           value: root
+        - name: MYSQL_DATABASE
+          value: "alinedb"
         ports:
         - containerPort: 3306
           name: mysql-db

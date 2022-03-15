@@ -1,40 +1,45 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-db
+  name: db-aline
+  namespace: dev
 spec:
   ports:
   - port: 3306
   selector:
-    app: mysql-db
+    app: db-aline
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-db
+  name: db-aline
+  namespace: dev
 spec:
   selector:
     matchLabels:
-      app: mysql-db
+      app: db-aline
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mysql-db
+        app: db-aline
     spec:
       containers:
       - image: mysql:latest
-        name: mysql-db
+        name: db-aline
+        # envFrom:
+        #   - configMapRef:
+        #       name: aline-configmap
+        #   - secretRef:
+        #       name: aline-secrets
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
           value: root
-        - name: MYSQL_DATABASE
-          value: "alinedb"
         ports:
         - containerPort: 3306
-          name: mysql-db
+          name: db-aline
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql

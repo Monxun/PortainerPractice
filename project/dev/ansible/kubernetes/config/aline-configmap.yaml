@@ -13,7 +13,7 @@ data:
   DDL_AUTO: "create-only"
   DB_USERNAME: "root"
   DB_PASSWORD: "root"
-  DB_HOST: "db-aline"
+  DB_HOST: "mysql-db"
   DB_PORT: "3306"
   DB_NAME: "alinedb"
   S3_TEMPLATE_BUCKET: "s3://jh-alinefinancial-email-templates"
