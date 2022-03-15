@@ -31,7 +31,6 @@ spec:
       containers:
       - name: adminer
         image: adminer
-        imagePullPolicy: Never
         envFrom:
           - configMapRef:
               name: aline-configmap
