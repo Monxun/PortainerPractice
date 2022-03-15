@@ -31,11 +31,11 @@ spec:
       - name: ms-underwriter
         image: ms-underwriter:0.1
         imagePullPolicy: Never
-        envFrom:
-          - configMapRef:
-              name: aline-configmap
-          - secretRef:
-              name: aline-secrets
+        # envFrom:
+        #   - configMapRef:
+        #       name: aline-configmap
+        #   - secretRef:
+        #       name: aline-secrets
         ports:
         - containerPort: 8071
           name: ms-underwriter

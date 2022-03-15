@@ -29,11 +29,11 @@ spec:
       - name: ci-producer
         image: ci-producer:0.1
         imagePullPolicy: Never
-        envFrom:
-          - configMapRef:
-              name: aline-configmap
-          - secretRef:
-              name: aline-secrets
+        # envFrom:
+        #   - configMapRef:
+        #       name: aline-configmap
+        #   - secretRef:
+        #       name: aline-secrets
         ports:
         - containerPort: 5050
           name: ci-producer

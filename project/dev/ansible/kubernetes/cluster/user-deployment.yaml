@@ -32,11 +32,11 @@ spec:
       - name: ms-user
         image: ms-user:0.1
         imagePullPolicy: Never
-        envFrom:
-          - configMapRef:
-              name: aline-configmap
-          - secretRef:
-              name: aline-secrets
+        # envFrom:
+        #   - configMapRef:
+        #       name: aline-configmap
+        #   - secretRef:
+        #       name: aline-secrets
         ports:
         - containerPort: 8070
           name: ms-user
