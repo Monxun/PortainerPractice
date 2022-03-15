@@ -18,23 +18,23 @@ docker-compose -f docker-compose.ci.yml build
 #//////////////////////////////////////////////////////////////////
 # BACKEND
 
-docker tag ms-bank:0.1 registry.dev.svc.cluster.local:5001/ms-bank:0.1
-docker push registry.dev.svc.cluster.local:5001/ms-bank:0.1
+docker tag ms-bank:0.1 localhost:51157/ms-bank:0.1
+docker push localhost:51157/ms-bank:0.1
 
-docker tag ms-transaction:0.1 registry.dev.svc.cluster.local:5001/ms-transaction:0.1
-docker push registry.dev.svc.cluster.local:5001/ms-transaction:0.1
-
-
-docker tag ms-underwriter:0.1 registry.dev.svc.cluster.local:5001/ms-underwriter:0.1
-docker push registry.dev.svc.cluster.local:5001/ms-underwriter:0.1
+docker tag ms-transaction:0.1 localhost:51157/ms-transaction:0.1
+docker push localhost:51157/ms-transaction:0.1
 
 
-docker tag ms-user:0.1 registry.dev.svc.cluster.local:5001/ms-user:0.1
-docker push registry.dev.svc.cluster.local:5001/ms-user:0.1
+docker tag ms-underwriter:0.1 localhost:51157/ms-underwriter:0.1
+docker push localhost:51157/ms-underwriter:0.1
 
 
-docker tag ms-gateway:0.1 registry.dev.svc.cluster.local:5001/ms-gateway:0.1
-docker push registry.dev.svc.cluster.local:5001/ms-gateway:0.1
+docker tag ms-user:0.1 localhost:51157/ms-user:0.1
+docker push localhost:51157/ms-user:0.1
+
+
+docker tag ms-gateway:0.1 localhost:51157/ms-gateway:0.1
+docker push localhost:51157/ms-gateway:0.1
 
 
 #//////////////////////////////////////////////////////////////////
@@ -55,6 +55,6 @@ docker push registry.dev.svc.cluster.local:5001/ms-gateway:0.1
 #//////////////////////////////////////////////////////////////////
 # CI
 
-docker tag ci-producer:0.1 registry.dev.svc.cluster.local:5001/ci-producer:0.1
-docker push registry.dev.svc.cluster.local:5001/ci-producer:0.1
+docker tag ci-producer:0.1 localhost:51157/ci-producer:0.1
+docker push localhost:51157/ci-producer:0.1
 
