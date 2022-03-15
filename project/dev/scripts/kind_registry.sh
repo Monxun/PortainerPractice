@@ -88,3 +88,6 @@ kubectl create -f ./kubernetes/config/namespace-dev.yaml
 kubectl config set-context --current --namespace=dev
 cd ..
 cd scripts
+
+# DASHBOARD
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
