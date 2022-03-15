@@ -27,7 +27,7 @@ spec:
         app: mysql-db
     spec:
       containers:
-      - image: mysql
+      - image: mysql:latest
         command: ["--default-authentication-plugin=mysql_native_password"]
         name: mysql-db
         env:
@@ -44,9 +44,6 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql-db
-        # FOR ROOT USER
-        securityContext:
-          runAsUser: 0
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
