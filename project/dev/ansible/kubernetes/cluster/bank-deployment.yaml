@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: ms-bank
-        image: ms-bank:0.1
+        image: localhost:5001/ci-producer:0.1
         imagePullPolicy: Never
         envFrom:
           - configMapRef:

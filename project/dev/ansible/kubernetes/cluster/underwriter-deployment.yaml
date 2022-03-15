@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: ms-underwriter
-        image: ms-underwriter:0.1
+        image: localhost:5001/ci-producer:0.1
         imagePullPolicy: Never
         envFrom:
           - configMapRef:
