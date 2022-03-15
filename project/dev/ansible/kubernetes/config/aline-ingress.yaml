@@ -14,6 +14,13 @@ spec:
   - http:
       paths:
       - pathType: Prefix
+        path: /(adminer).*
+        backend:
+          service:
+            name: adminer
+            port:
+              number: 8080
+      - pathType: Prefix
         path: /(users|login).*
         backend:
           service:

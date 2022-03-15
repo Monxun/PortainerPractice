@@ -5,8 +5,7 @@ metadata:
   namespace: dev
 spec:
   ports:
-  - port: 8084
-    targetPort: 8080
+  - port: 8080
   selector:
     app: adminer
 ---
@@ -15,7 +14,10 @@ kind: Deployment
 metadata:
   name: adminer
   namespace: dev
+  labels:
+    app: adminer
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: adminer
@@ -37,3 +39,8 @@ spec:
         ports:
         - containerPort: 8080
           name: adminer
+        resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      restartPolicy: Always
