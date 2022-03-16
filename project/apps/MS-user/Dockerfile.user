@@ -1,6 +1,6 @@
-FROM openjdk:latest
+FROM openjre:latest
 ADD ./user-microservice/target/user-microservice-0.1.0.jar user-microservice-0.1.0.jar
 EXPOSE 8070
 ENTRYPOINT ["java", "-jar", "user-microservice-0.1.0.jar"]
 
-# add app port variable from mavenfor expose & update jar location
+# add app port variable from mavenfor expose & update jar location. Make artifact path to app.jar 

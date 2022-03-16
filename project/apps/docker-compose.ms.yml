@@ -31,6 +31,7 @@ services:
   ms-transaction:
     image: ms-transaction:0.1
     container_name: ms-transaction
+    # CAP RESTARTS
     restart: always
     build:
       context: ./MS-transaction

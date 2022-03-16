@@ -91,3 +91,6 @@ cd scripts
 
 # DASHBOARD
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+
+# DEPLOY NETSHOOT TOOL CONTAINER
+kubectl run --generator run-pod/v1 tmp-shell --rm -it --image bretfisher/netshoot -- bash
