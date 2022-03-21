@@ -1,7 +1,8 @@
-FROM openjre:latest
-ADD ./bank-microservice/target/bank-microservice-0.1.0.jar bank-microservice-0.1.0.jar
+FROM openjdk:8u322-jre-buster
+WORKDIR /app
+ADD ./bank-microservice/target/app.jar app.jar
 EXPOSE 8083
-ENTRYPOINT ["java", "-jar", "bank-microservice-0.1.0.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # add app port variable from mavenfor expose & update jar location
 

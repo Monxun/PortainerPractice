@@ -12,5 +12,8 @@ kubectl create -f ./kubernetes/cluster --namespace=dev
 cd ..
 cd scripts
 
+# DEPLOY NETSHOOT TOOL CONTAINER
+kubectl run tmp-shell --rm -it --image bretfisher/netshoot -- bash
+
 # sleep 1m
 # source access-database.sh
