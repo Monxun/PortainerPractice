@@ -21,6 +21,7 @@
         <module>user-microservice</module>
     </modules>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

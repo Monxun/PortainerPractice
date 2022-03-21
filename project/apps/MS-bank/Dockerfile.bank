@@ -1,9 +1,4 @@
 FROM openjdk:8u322-jre-buster
-WORKDIR /app
-ADD ./bank-microservice/target/app.jar app.jar
+ADD ./bank-microservice/target/bank-microservice.jar bank-microservice.jar
 EXPOSE 8083
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
-# add app port variable from mavenfor expose & update jar location
-
-# add wildcard for all jar files in each dockerfile and correct verion of images
+ENTRYPOINT ["java", "-jar", "bank-microservice.jar"]

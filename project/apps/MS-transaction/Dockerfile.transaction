@@ -1,6 +1,6 @@
-FROM openjre:latest
-ADD ./transaction-microservice/target/transaction-microservice-0.1.0.jar transaction-microservice-0.1.0.jar
+FROM openjdk:8u322-jre-buster
+ADD ./transaction-microservice/target/transaction-microservice.jar transaction-microservice.jar
 EXPOSE 8073
-ENTRYPOINT ["java", "-jar", "transaction-microservice-0.1.0.jar"]
+ENTRYPOINT ["java", "-jar", "transaction-microservice.jar"]
 
 # add app port variable from mavenfor expose & update jar location
